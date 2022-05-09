@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import GridComponent from "./components/GridComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+    
+    return (
+        <React.Fragment>
+            <div>
+                <button onClick={handlePrint}>Print</button>
+            </div>
+            <GridComponent ref={componentRef} />
+        </React.Fragment>
+    );
 }
 
 export default App;
