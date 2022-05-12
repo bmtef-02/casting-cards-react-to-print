@@ -32,11 +32,11 @@ function CardComponent() {
             <img src="https://thehappypuppysite.com/wp-content/uploads/2018/06/Shiba-Inu-Wonderful-Watchdog-or-Family-Pet_-HP-long.jpg" alt="Shiba inu puppy" className="card-img-top rounded-0" style={styles.img} />
             <div className="card-body" style={styles.cardBody}>
                 <p className="card-text" style={styles.cardInfo}>Name</p>
-                <p className="card-text" style={styles.cardInfo}>Ethnicity</p>
+                <p className="card-text" style={styles.cardInfo}>XXX</p>
                 <p className="card-text" style={styles.cardInfo}>Relationship Status</p>
                 <p className="card-text" style={styles.cardInfo}>Location</p>
                 <p className="card-text" style={styles.cardInfo}>Age</p>
-                <p className="card-text" style={styles.cardInfo}>IQ</p>
+                <p className="card-text" style={styles.cardInfo}>XXX</p>
             </div>
         </div>
     );

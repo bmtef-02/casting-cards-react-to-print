@@ -2,6 +2,9 @@ import React from "react";
 import CardComponent from "./CardComponent";
 
 const styles = {
+    page: {
+        paddingTop: '0.1cm',
+    },
     row: {
         margin: '10px'
     }
@@ -9,7 +12,7 @@ const styles = {
 
 const GridComponent = React.forwardRef((props, ref) => {
     return (
-        <div ref={ref} className="container">
+        <div ref={ref} className="container-fluid" style={styles.page}>
             <div className="row" style={styles.row}>
                 <div className="col">
                     <CardComponent />
