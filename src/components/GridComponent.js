@@ -13,6 +13,7 @@ const styles = {
 
 const GridComponent = React.forwardRef((props, ref) => {
     const location = useLocation();
+    console.log(location.state)
 
     return (
         <div ref={ref} className="container-fluid" style={styles.page}>

@@ -31,9 +31,23 @@ const styles = {
 
 function SelectionComponent() {
 
-    const [nameArr, setNameArr] = useState(
-        CONTESTANTS.map(contestantObj => contestantObj.name)
-    );
+    const [sortedNames, setSortedNames] = useState(() => {
+        const sortedContestants = CONTESTANTS.sort((a, b) => {
+            let lastNameA = a.lastName.toUpperCase();
+            let lastNameB = b.lastName.toUpperCase();
+            let firstNameA = a.firstName.toUpperCase();
+            let firstNameB = b.firstName.toUpperCase();
+
+            if (lastNameA === lastNameB) {
+                return (firstNameA < firstNameB) ? -1 : (firstNameA > firstNameB) ? 1 : 0;
+            }
+            return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+        })
+
+        const sortedNames = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`)
+
+        return sortedNames;
+    });
 
     const [selectedNames, setSelectedNames] = useState(Array(8));
 
@@ -55,30 +69,30 @@ function SelectionComponent() {
                 <div className="container-fluid">
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent contestantList={sortedNames} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                 </div>
