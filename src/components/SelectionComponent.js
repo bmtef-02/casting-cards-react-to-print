@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SelectCardComponent from "./SelectCardComponent";
 import { CONTESTANTS } from "../shared/contestants";
 
@@ -35,41 +35,50 @@ function SelectionComponent() {
         CONTESTANTS.map(contestantObj => contestantObj.name)
     );
 
+    const [selectedNames, setSelectedNames] = useState(Array(8));
+
+    const navigate = useNavigate();
+
+    const handleSubmit = () => {
+        navigate("/print", { state: selectedNames })
+    }
+
     return (
         <React.Fragment>
             <div>
                 <Link to="/">
                     <button>Home</button>
                 </Link>
+                <button onClick={handleSubmit}>Submit</button>
             </div>
             <div style={styles.page}>
                 <div className="container-fluid">
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={nameArr}/>
+                            <SelectCardComponent contestantList={nameArr} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                 </div>

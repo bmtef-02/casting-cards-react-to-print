@@ -13,15 +13,24 @@ const styles = {
     }
 };
 
-function SelectCardComponent({contestantList}) {
+function SelectCardComponent({ contestantList, cardNum, selectedNames, setSelectedNames }) {
+
+    const handleFieldChange = (event) => {
+        const newArray = [...selectedNames];
+        newArray[cardNum] = event.target.value;
+        console.log(newArray)
+        setSelectedNames(newArray);
+    };
 
     return (
         <div className="card rounded-0" style={styles.card}>
-            <select>
+            <select onChange={handleFieldChange}>
+                <option value={""} key={0} id={0}>None</option>
                 {contestantList.map((name, index) => (
-                    <option value={name} key={index}>{name}</option>
+                    <option value={name} key={index + 1} id={index + 1}>{name}</option>
                 ))}
             </select>
+            <div>{`You chose: ${selectedNames[cardNum]}`}</div>
         </div>
     );
 };
