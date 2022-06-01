@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from 'react-select'
 
 const styles = {
     card: {
@@ -13,23 +14,27 @@ const styles = {
     }
 };
 
-function SelectCardComponent({ contestantList, cardNum, selectedNames, setSelectedNames }) {
+function SelectCardComponent({ searchList, cardNum, selectedNames, setSelectedNames }) {
 
-    const handleFieldChange = (event) => {
+    const handleFieldChange = (selectedName) => {
         const newArray = [...selectedNames];
-        newArray[cardNum] = event.target.value;
-        console.log(newArray)
+
+        if (selectedName === null) {
+            newArray[cardNum] = undefined;
+        } else {
+            newArray[cardNum] = selectedName.value;
+        }
+
         setSelectedNames(newArray);
     };
 
     return (
         <div className="card rounded-0" style={styles.card}>
-            <select onChange={handleFieldChange}>
-                <option value={""} key={0} id={0}>None</option>
-                {contestantList.map((name, index) => (
-                    <option value={name} key={index + 1} id={index + 1}>{name}</option>
-                ))}
-            </select>
+            <Select 
+                options={searchList}
+                onChange={handleFieldChange}
+                isClearable={true}
+            />
             <div>{`You chose: ${selectedNames[cardNum]}`}</div>
         </div>
     );

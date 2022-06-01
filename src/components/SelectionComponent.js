@@ -31,7 +31,7 @@ const styles = {
 
 function SelectionComponent() {
 
-    const [sortedNames, setSortedNames] = useState(() => {
+    const [searchList, setSearchList] = useState(() => {
         const sortedContestants = CONTESTANTS.sort((a, b) => {
             let lastNameA = a.lastName.toUpperCase();
             let lastNameB = b.lastName.toUpperCase();
@@ -44,9 +44,16 @@ function SelectionComponent() {
             return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
         })
 
-        const sortedNames = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`)
+        // const searchList = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`)
+        const searchList = sortedContestants.map(obj => {
+            return {
+                value: `${obj.lastName}, ${obj.firstName}`,
+                label: `${obj.lastName}, ${obj.firstName}`
+            }
+        })
+        console.log(searchList)
 
-        return sortedNames;
+        return searchList;
     });
 
     const [selectedNames, setSelectedNames] = useState(Array(8));
@@ -69,30 +76,30 @@ function SelectionComponent() {
                 <div className="container-fluid">
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                     <div className="row" style={styles.row}>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                         <div className="col">
-                            <SelectCardComponent contestantList={sortedNames} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                            <SelectCardComponent searchList={searchList} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                         </div>
                     </div>
                 </div>
