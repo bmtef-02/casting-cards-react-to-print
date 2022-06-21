@@ -71,11 +71,11 @@ export const CONTESTANTS = [
     },
     {
         id: 7,
-        firstName: "AReallyLongFirstNameMore",
-        lastName: "AReallyStupidlyLongName",
+        firstName: "Stephanie",
+        lastName: "Aellarrellogorrepporlly IIII",
         ethnicity: "Latino",
         relStatus: "Married",
-        location: "Phoenix, AZ",
+        location: "San Francisco, CA via Los Angeles, CA",
         age: 44,
         IQ: 105
     }

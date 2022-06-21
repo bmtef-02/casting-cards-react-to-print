@@ -19,6 +19,9 @@ const styles = {
         borderBottom: 'solid 2px black'
     },
     cardBody: {
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         padding: '0',
         marginTop: '3px',
     },
@@ -27,9 +30,9 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '0',
-        border: '1px solid black',
-        width: '2.44in',
-        height: '0.26in',
+        // border: '1px solid black',
+        width: '2.43in',    // full width is 2.44in
+        height: '0.22in',   // full height is 0.26in
         fontSize: '16px'
     }
 };
@@ -45,13 +48,10 @@ const resizeText = ({
 }) => {
     elements.forEach((el) => {
         let i = maxSize;
-        console.log(el.style.fontSize)
 
         while (isOverflown(el) && i >= minSize) {
-            console.log(isOverflown(el))
             i -= step;
             el.style.fontSize = `${i}${unit}`;
-            console.log(el.style.fontSize)
         }
 
 
@@ -65,10 +65,11 @@ function CardComponentTest({selection}) {
     const index = contestant.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
 
     useEffect(() => {
+        console.log("useEffect happened")
         resizeText({
             elements: document.querySelectorAll(".card-text-test")
-        })
-    })
+        });
+    }, [])
 
     if (index > -1) {
         return (
