@@ -23,8 +23,6 @@ const styles = {
         marginTop: '3px',
     },
     cardInfoTest: {
-        // textAlign: 'center',
-        // lineHeight: '0.26in',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -32,36 +30,31 @@ const styles = {
         border: '1px solid black',
         width: '2.44in',
         height: '0.26in',
-        // fontSize: '16px'
+        fontSize: '16px'
     }
 };
 
 const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight;
 
 const resizeText = ({
-    element,
     elements,
-    minSize = 10,
-    maxSize = 16,
+    minSize = 5,
+    maxSize = 20,
     step = 1,
     unit = 'px'
 }) => {
-    (elements || [element]).forEach((el) => {
-        let i = minSize;
-        let overflow = false;
-        console.log(overflow)
+    elements.forEach((el) => {
+        let i = maxSize;
+        console.log(el.style.fontSize)
 
-        while (!overflow && i < maxSize) {
+        while (isOverflown(el) && i >= minSize) {
+            console.log(isOverflown(el))
+            i -= step;
             el.style.fontSize = `${i}${unit}`;
-            overflow = isOverflown(el);
-            console.log(overflow);
-
-            if (!overflow) {
-                i += step;
-            }
+            console.log(el.style.fontSize)
         }
 
-        el.style.fontSize = `${i - step}${unit}`
+
     });
 };
 
@@ -73,7 +66,7 @@ function CardComponentTest({selection}) {
 
     useEffect(() => {
         resizeText({
-            elements: document.querySelectorAll(".card-text")
+            elements: document.querySelectorAll(".card-text-test")
         })
     })
 
@@ -82,12 +75,12 @@ function CardComponentTest({selection}) {
             <div className="card rounded-0" style={styles.card}>
                 <img src="https://thehappypuppysite.com/wp-content/uploads/2018/06/Shiba-Inu-Wonderful-Watchdog-or-Family-Pet_-HP-long.jpg" alt="Shiba inu puppy" className="card-img-top rounded-0" style={styles.img} />
                 <div className="card-body" style={styles.cardBody}>
-                    <p className="card-text" style={styles.cardInfoTest}>{`${contestant[index].firstName} ${contestant[index].lastName}`}</p>
-                    <p className="card-text" style={styles.cardInfoTest}>{contestant[index].ethnicity}</p>
-                    <p className="card-text" style={styles.cardInfoTest}>{contestant[index].relStatus}</p>
-                    <p className="card-text" style={styles.cardInfoTest}>{contestant[index].location}</p>
-                    <p className="card-text" style={styles.cardInfoTest}>{`${contestant[index].age} years old`}</p>
-                    <p className="card-text" style={styles.cardInfoTest}>{`IQ: ${contestant[index].IQ}`}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{`${contestant[index].firstName} ${contestant[index].lastName}`}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{contestant[index].ethnicity}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{contestant[index].relStatus}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{contestant[index].location}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{`${contestant[index].age} years old`}</p>
+                    <p className="card-text-test" style={styles.cardInfoTest}>{`IQ: ${contestant[index].IQ}`}</p>
                 </div>
             </div>
         );
