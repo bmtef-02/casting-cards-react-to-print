@@ -72,7 +72,7 @@ export const CONTESTANTS = [
     {
         id: 7,
         firstName: "Stephanie",
-        lastName: "Aellarrellogorrepporlly IIII",
+        lastName: "Aellarrellogorrepporlly III",
         ethnicity: "Latino",
         relStatus: "Married",
         location: "San Francisco, CA via Los Angeles, CA",

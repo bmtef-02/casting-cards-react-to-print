@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CardComponent from "./CardComponent";
-import CardComponentTest from "./CardComponentTest";
 
 const styles = {
     page: {
@@ -20,7 +19,7 @@ const GridComponent = React.forwardRef((props, ref) => {
         <div ref={ref} className="container-fluid" style={styles.page}>
             <div className="row" style={styles.row}>
                 <div className="col">
-                    <CardComponentTest selection={location.state[0]} />
+                    <CardComponent selection={location.state[0]} />
                 </div>
                 <div className="col">
                     <CardComponent selection={location.state[1]} />

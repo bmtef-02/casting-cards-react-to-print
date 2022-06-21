@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CONTESTANTS } from "../shared/contestants";
 import placeholder from "../img/placeholder.png"
 
@@ -19,13 +19,43 @@ const styles = {
         borderBottom: 'solid 2px black'
     },
     cardBody: {
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         padding: '0',
         marginTop: '3px',
     },
     cardInfo: {
-        textAlign: 'center',
-        marginBottom: '0'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '0',
+        // border: '1px solid black',
+        width: '2.40in',    // full width is 2.44in
+        height: '0.22in',   // full height is 0.26in
+        fontSize: '16px'
     }
+};
+
+const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight;
+
+const resizeText = ({
+    elements,
+    minSize = 5,
+    maxSize = 20,
+    step = 1,
+    unit = 'px'
+}) => {
+    elements.forEach((el) => {
+        let i = maxSize;
+
+        while (isOverflown(el) && i >= minSize) {
+            i -= step;
+            el.style.fontSize = `${i}${unit}`;
+        }
+
+
+    });
 };
 
 function CardComponent({selection}) {
@@ -33,6 +63,12 @@ function CardComponent({selection}) {
     const [contestant, setContestant] = useState(CONTESTANTS)
 
     const index = contestant.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
+
+    useEffect(() => {
+        resizeText({
+            elements: document.querySelectorAll(".card-text")
+        });
+    }, [])
 
     if (index > -1) {
         return (
