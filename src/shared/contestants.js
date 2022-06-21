@@ -71,7 +71,7 @@ export const CONTESTANTS = [
     },
     {
         id: 7,
-        firstName: "George",
+        firstName: "AReallyLongNameSuperWideTestEvenMore",
         lastName: "A",
         ethnicity: "Latino",
         relStatus: "Married",
