@@ -4,8 +4,8 @@ import placeholder from "../img/placeholder.png"
 const styles = {
     card: {
         border: 'solid 2px black',
-        width: '0.62in',
-        height: '0.98in',
+        width: '1.99in',
+        height: '3.14in',
     },
     rowImg: {
         borderBottom: 'solid 2px black',
@@ -13,8 +13,8 @@ const styles = {
     },
     img: {
         objectFit: 'cover',
-        height: '0.56in',
-        width: '0.61in',
+        height: '1.81in',
+        width: '1.95in',
         borderBottom: 'solid 2px black'
     },
     cardBody: {
@@ -30,9 +30,9 @@ const styles = {
         justifyContent: 'center',
         marginBottom: '0',
         // border: '1px solid black',
-        width: '0.54in',    // full width is 2.44in
-        height: '0.05in',   // full height is 0.26in
-        fontSize: '4px'
+        width: '1.91in',    // full width is 2.44in
+        height: '0.17in',   // full height is 0.26in
+        fontSize: '10px'
     }
 };
 
@@ -62,7 +62,14 @@ function MiniCard({selection, sortedContestants}) {
     return (
         <div className="card rounded-0" style={styles.card}>
             <img src={placeholder} alt="N/A" className="card-img-top rounded-0" style={styles.img} />
-            <div className="card-body" style={styles.cardBody} />
+            <div className="card-body" style={styles.cardBody}>
+                <p className="card-text" style={styles.cardInfo}>Brian Jun</p>
+                <p className="card-text" style={styles.cardInfo}>Asian</p>
+                <p className="card-text" style={styles.cardInfo}>Single w/ GF</p>
+                <p className="card-text" style={styles.cardInfo}>Los Angeles, CA</p>
+                <p className="card-text" style={styles.cardInfo}>28</p>
+                <p className="card-text" style={styles.cardInfo}>100</p>
+            </div>
         </div>
     );
 
