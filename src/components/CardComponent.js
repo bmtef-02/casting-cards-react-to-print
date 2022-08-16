@@ -82,12 +82,7 @@ function CardComponent({selection, sortedContestants}) {
             </div>
         );
     } else {
-        return (
-            <div className="card rounded-0" style={styles.card}>
-                <img src={placeholder} alt="N/A" className="card-img-top rounded-0" style={styles.img} />
-                <div className="card-body" style={styles.cardBody} />
-            </div>
-        );
+        return null
     }
 };
 
