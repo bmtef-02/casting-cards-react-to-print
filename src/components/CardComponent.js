@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { CONTESTANTS } from "../shared/contestants";
+import React, { useEffect } from "react";
 import placeholder from "../img/placeholder.png"
 
 const styles = {
@@ -58,11 +57,9 @@ const resizeText = ({
     });
 };
 
-function CardComponent({selection}) {
+function CardComponent({selection, sortedContestants}) {
 
-    const [contestant, setContestant] = useState(CONTESTANTS)
-
-    const index = contestant.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
+    const index = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
 
     useEffect(() => {
         resizeText({
@@ -75,12 +72,12 @@ function CardComponent({selection}) {
             <div className="card rounded-0" style={styles.card}>
                 <img src="https://thehappypuppysite.com/wp-content/uploads/2018/06/Shiba-Inu-Wonderful-Watchdog-or-Family-Pet_-HP-long.jpg" alt="Shiba inu puppy" className="card-img-top rounded-0" style={styles.img} />
                 <div className="card-body" style={styles.cardBody}>
-                    <p className="card-text" style={styles.cardInfo}>{`${contestant[index].firstName} ${contestant[index].lastName}`}</p>
-                    <p className="card-text" style={styles.cardInfo}>{contestant[index].ethnicity}</p>
-                    <p className="card-text" style={styles.cardInfo}>{contestant[index].relStatus}</p>
-                    <p className="card-text" style={styles.cardInfo}>{contestant[index].location}</p>
-                    <p className="card-text" style={styles.cardInfo}>{`${contestant[index].age} years old`}</p>
-                    <p className="card-text" style={styles.cardInfo}>{`IQ: ${contestant[index].IQ}`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].ethnicity}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].relStatus}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].location}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].age} years old`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`IQ: ${sortedContestants[index].IQ}`}</p>
                 </div>
             </div>
         );

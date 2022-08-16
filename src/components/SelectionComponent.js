@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import SelectCardComponent from "./SelectCardComponent";
-import { CONTESTANTS } from "../shared/contestants";
-
-const pageStyle = `
-        @page {
-            size: 29.7cm 21cm;
-        },
-        @media print {
-            @page { size: landscape; }
-        }
-    `;
 
 const styles = {
     page: {
@@ -31,37 +22,44 @@ const styles = {
 
 function SelectionComponent() {
 
-    const [searchList, setSearchList] = useState(() => {
-        const sortedContestants = CONTESTANTS.sort((a, b) => {
-            let lastNameA = a.lastName.toUpperCase();
-            let lastNameB = b.lastName.toUpperCase();
-            let firstNameA = a.firstName.toUpperCase();
-            let firstNameB = b.firstName.toUpperCase();
-
-            if (lastNameA === lastNameB) {
-                return (firstNameA < firstNameB) ? -1 : (firstNameA > firstNameB) ? 1 : 0;
-            }
-            return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
-        })
-
-        // const searchList = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`)
-        const searchList = sortedContestants.map(obj => {
-            return {
-                value: `${obj.lastName}, ${obj.firstName}`,
-                label: `${obj.lastName}, ${obj.firstName}`
-            }
-        })
-        console.log(searchList)
-
-        return searchList;
-    });
-
+    const [sortedContestants, setSortedContestants] = useState([]);
+    const [searchList, setSearchList] = useState([]);
     const [selectedNames, setSelectedNames] = useState(Array(8));
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/contestants`)
+        .then(resp => {
+            const arr = resp.data;
+            const sortedArr = arr.sort((a, b) => {
+                let lastNameA = a.lastName.toUpperCase();
+                let lastNameB = b.lastName.toUpperCase();
+                let firstNameA = a.firstName.toUpperCase();
+                let firstNameB = b.firstName.toUpperCase();
+
+                if (lastNameA === lastNameB) {
+                    return (firstNameA < firstNameB) ? -1 : (firstNameA > firstNameB) ? 1 : 0;
+                }
+                return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+            });
+            const list = sortedArr.map(obj => {
+                return {
+                    value: `${obj.lastName}, ${obj.firstName}`,
+                    label: `${obj.lastName}, ${obj.firstName}`
+                }
+            })
+            setSortedContestants(sortedArr);
+            setSearchList(list);
+        })
+        .catch(err => console.error(err))
+    }, []);
 
     const navigate = useNavigate();
 
     const handleSubmit = () => {
-        navigate("/print", { state: selectedNames })
+        navigate("/print", { state: {
+            selectedNames: selectedNames,
+            sortedContestants: sortedContestants
+        }})
     }
 
     return (
