@@ -70,7 +70,7 @@ function CardComponent({selection, sortedContestants}) {
     if (index > -1) {
         return (
             <div className="card rounded-0" style={styles.card}>
-                <img src="https://thehappypuppysite.com/wp-content/uploads/2018/06/Shiba-Inu-Wonderful-Watchdog-or-Family-Pet_-HP-long.jpg" alt="Shiba inu puppy" className="card-img-top rounded-0" style={styles.img} />
+                <img src={`${sortedContestants[index].imgSrc}`} alt={`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}'s Headshot`} className="card-img-top rounded-0" style={styles.img} />
                 <div className="card-body" style={styles.cardBody}>
                     <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}`}</p>
                     <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].ethnicity}</p>
