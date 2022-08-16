@@ -32,7 +32,7 @@ const styles = {
         // border: '1px solid black',
         width: '1.91in',    // full width is 2.44in
         height: '0.17in',   // full height is 0.26in
-        fontSize: '10px'
+        fontSize: '12px'
     }
 };
 
@@ -59,6 +59,12 @@ const resizeText = ({
 
 function MiniCard({selection, sortedContestants}) {
 
+    useEffect(() => {
+        resizeText({
+            elements: document.querySelectorAll(".card-text")
+        });
+    }, [])
+
     return (
         <div className="card rounded-0" style={styles.card}>
             <img src={placeholder} alt="N/A" className="card-img-top rounded-0" style={styles.img} />
@@ -66,7 +72,7 @@ function MiniCard({selection, sortedContestants}) {
                 <p className="card-text" style={styles.cardInfo}>Brian Jun</p>
                 <p className="card-text" style={styles.cardInfo}>Asian</p>
                 <p className="card-text" style={styles.cardInfo}>Single w/ GF</p>
-                <p className="card-text" style={styles.cardInfo}>Los Angeles, CA</p>
+                <p className="card-text" style={styles.cardInfo}>Los Angeles, CA via San Francisco, CA</p>
                 <p className="card-text" style={styles.cardInfo}>28</p>
                 <p className="card-text" style={styles.cardInfo}>100</p>
             </div>
