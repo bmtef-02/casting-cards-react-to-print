@@ -22,7 +22,8 @@ export default function Home() {
             let path = `/selection4x2`;
             navigate(path, { state: event.target.name });
         } else if (event.target.name === "5x2") {
-            console.log(event.target.name);
+            let path = `/selection5x2`;
+            navigate(path, { state: event.target.name })
         }
     }
     return (

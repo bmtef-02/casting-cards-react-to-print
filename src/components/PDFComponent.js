@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Link, useLocation } from "react-router-dom";
 import Grid4x2 from "./Grid4x2Component";
+import Grid5x2 from "./Grid5x2Component";
 
 function PDF() {
     const pageStyle = `
@@ -46,7 +47,10 @@ function PDF() {
                 { location.state.gridType === "4x2" ? 
                     <Grid4x2 ref={componentRef} />
                     :
-                    <h1>Grid5x2 Component</h1>
+                    location.state.gridType === "5x2" ?
+                    <Grid5x2 ref={componentRef} />
+                    :
+                    <h1>Grid type not found</h1>
                 }
                 
             </div>

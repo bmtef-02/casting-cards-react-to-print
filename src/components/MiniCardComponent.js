@@ -59,56 +59,31 @@ const resizeText = ({   // if fontSize is not changing text size, adjust the hei
 
 function MiniCard({selection, sortedContestants}) {
 
+    const index = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
+
     useEffect(() => {
         resizeText({
             elements: document.querySelectorAll(".card-text")
         });
     }, [])
 
-    return (
-        <div className="card rounded-0" style={styles.card}>
-            <img src={placeholder} alt="N/A" className="card-img-top rounded-0" style={styles.img} />
-            <div className="card-body" style={styles.cardBody}>
-                <p className="card-text" style={styles.cardInfo}>Brian Jun</p>
-                <p className="card-text" style={styles.cardInfo}>Asian</p>
-                <p className="card-text" style={styles.cardInfo}>Single w/ GF</p>
-                <p className="card-text" style={styles.cardInfo}>Los Angeles, CA via San Francisco, CA</p>
-                <p className="card-text" style={styles.cardInfo}>28</p>
-                <p className="card-text" style={styles.cardInfo}>100</p>
+    if (index > -1) {
+        return (
+            <div className="card rounded-0" style={styles.card}>
+                <img src={`${sortedContestants[index].imgSrc}`} alt={`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}'s Headshot`} className="card-img-top rounded-0" style={styles.img} />
+                <div className="card-body" style={styles.cardBody}>
+                    <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].ethnicity}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].relStatus}</p>
+                    <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].location}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].age} years old`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`IQ: ${sortedContestants[index].IQ}`}</p>
+                </div>
             </div>
-        </div>
-    );
-
-    // const index = sortedContestants.map(obj => `${obj.lastName}, ${obj.firstName}`).indexOf(selection)
-
-    // useEffect(() => {
-    //     resizeText({
-    //         elements: document.querySelectorAll(".card-text")
-    //     });
-    // }, [])
-
-    // if (index > -1) {
-    //     return (
-    //         <div className="card rounded-0" style={styles.card}>
-    //             <img src={`${sortedContestants[index].imgSrc}`} alt={`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}'s Headshot`} className="card-img-top rounded-0" style={styles.img} />
-    //             <div className="card-body" style={styles.cardBody}>
-    //                 <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].firstName} ${sortedContestants[index].lastName}`}</p>
-    //                 <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].ethnicity}</p>
-    //                 <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].relStatus}</p>
-    //                 <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].location}</p>
-    //                 <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].age} years old`}</p>
-    //                 <p className="card-text" style={styles.cardInfo}>{`IQ: ${sortedContestants[index].IQ}`}</p>
-    //             </div>
-    //         </div>
-    //     );
-    // } else {
-    //     return (
-    //         <div className="card rounded-0" style={styles.card}>
-    //             <img src={placeholder} alt="N/A" className="card-img-top rounded-0" style={styles.img} />
-    //             <div className="card-body" style={styles.cardBody} />
-    //         </div>
-    //     );
-    // }
+        );
+    } else {
+        return null
+    }
 };
 
 export default MiniCard;
