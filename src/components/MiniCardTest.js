@@ -1,21 +1,3 @@
-// import React from 'react';
-// import MiniCard from './MiniCardComponent';
-// import CardTest from './CardTest';
-
-// export default function MiniCardTest() {
-
-//     return (
-//         <React.Fragment>
-//             <div >
-//                 <MiniCard />
-//             </div>
-//             <div style={{marginTop: '15px'}} >
-//                 <CardTest />
-//             </div>
-//         </React.Fragment>
-//     );
-// }
-
 import React, { useRef } from "react";
 import MiniCard from "./MiniCardComponent";
 
@@ -46,7 +28,7 @@ function PDF() {
         <React.Fragment>
             <div style={styles.page}>
                 <div className="container-fluid" style={{ paddingTop: '0.1cm' }}>
-                    <div className="row" style={{ margin: '10px' }}>
+                    <div className="row" style={{ margin: '50px 10px 10px 10px' }}>
                         <div className="col">
                             <MiniCard />
                         </div>
@@ -63,7 +45,7 @@ function PDF() {
                             <MiniCard />
                         </div>
                     </div>
-                    <div className="row" style={{ margin: '10px' }}>
+                    <div className="row" style={{ margin: '50px 10px 10px 10px' }}>
                         <div className="col">
                             <MiniCard />
                         </div>

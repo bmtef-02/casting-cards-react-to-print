@@ -5,7 +5,7 @@ const styles = {
     card: {
         border: 'solid 2px black',
         width: '1.99in',
-        height: '3.14in',
+        height: '3.25in',
     },
     rowImg: {
         borderBottom: 'solid 2px black',
@@ -28,17 +28,17 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '0',
+        marginBottom: '0px',
         // border: '1px solid black',
         width: '1.91in',    // full width is 2.44in
-        height: '0.17in',   // full height is 0.26in
-        fontSize: '12px'
+        height: '0.21in',   // full height is 0.26in
+        fontSize: '14px'
     }
 };
 
 const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight;
 
-const resizeText = ({
+const resizeText = ({   // if fontSize is not changing text size, adjust the height in styles.cardInfo
     elements,
     minSize = 5,
     maxSize = 20,
