@@ -1,27 +1,17 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import PDF from "./components/PDFComponent";
-import SelectionComponent from "./components/SelectionComponent";
-
-function Home() {
-    return (
-        <div>
-            <Link to="/">
-                <button>Home</button>
-            </Link>
-            <Link to="/selection">
-                <button>Make Selections</button>
-            </Link>
-        </div>
-    )
-}
+import MiniCardTest from "./components/MiniCardTest";
+import Home from "./components/HomepageComponent";
+import Selection4x2 from "./components/Selection4x2Component";
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/print" element={<PDF />} />
-            <Route path="/selection" element={<SelectionComponent />} />
+            <Route path="/selection4x2" element={<Selection4x2 />} />
+            <Route path="/minicards" element={<MiniCardTest />} />
         </Routes>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import { Link } from "react-router-dom";
-import GridComponent from "./GridComponent";
+import { Link, useLocation } from "react-router-dom";
+import Grid4x2 from "./Grid4x2Component";
 
 function PDF() {
     const pageStyle = `
@@ -27,6 +27,7 @@ function PDF() {
     };
     
     const componentRef = useRef();
+    const location = useLocation();
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -39,13 +40,15 @@ function PDF() {
                 <Link to="/">
                     <button>Home</button>
                 </Link>
-                <Link to="/selection">
-                    <button>Make Selections</button>
-                </Link>
                 <button onClick={handlePrint}>Print</button>
             </div>
             <div style={styles.page}>
-                <GridComponent ref={componentRef} />
+                { location.state.gridType === "4x2" ? 
+                    <Grid4x2 ref={componentRef} />
+                    :
+                    <h1>Grid5x2 Component</h1>
+                }
+                
             </div>
         </React.Fragment>
     );
