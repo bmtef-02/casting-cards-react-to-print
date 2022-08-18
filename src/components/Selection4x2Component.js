@@ -24,8 +24,8 @@ export default function Selection4x2() {
 
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(Array.from(Array(16)));
-    const [numPages, setNumPages] = useState([1, 2]);
+    const [selectedNames, setSelectedNames] = useState(Array.from(Array(8)));
+    const [numPages, setNumPages] = useState([""]);
     const location = useLocation();
     let start = 0;
     let end = 4;
@@ -67,6 +67,14 @@ export default function Selection4x2() {
         }})
     };
 
+    const addPage = () => {
+        const newNumPages = [...numPages];
+        newNumPages.push("");
+        const newSelectedNames = selectedNames.concat(Array.from(Array(8)))
+        setNumPages(newNumPages);
+        setSelectedNames(newSelectedNames);
+    }
+
     return (
         <React.Fragment>
             <div>
@@ -74,7 +82,7 @@ export default function Selection4x2() {
                     <button>Home</button>
                 </Link>
                 <button onClick={handleSubmit}>Submit</button>
-                <button onClick={() => setNumPages(numPages + 1)}>Add page</button>
+                <button onClick={addPage}>Add page</button>
             </div>
             {numPages.map((obj, i) => {
                 return (
