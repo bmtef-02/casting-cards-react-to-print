@@ -45,14 +45,15 @@ function PDF() {
             </div>
             <div style={styles.page}>
                 { location.state.gridType === "4x2" ? 
-                    <Grid4x2 ref={componentRef} />
+                    <React.Fragment>
+                        <Grid4x2 ref={componentRef} />
+                    </React.Fragment>
                     :
                     location.state.gridType === "5x2" ?
                     <Grid5x2 ref={componentRef} />
                     :
                     <h1>Grid type not found</h1>
                 }
-                
             </div>
         </React.Fragment>
     );

@@ -24,8 +24,11 @@ export default function Selection4x2() {
 
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(Array(8));
+    const [selectedNames, setSelectedNames] = useState(Array.from(Array(16)));
+    const [numPages, setNumPages] = useState([1, 2]);
     const location = useLocation();
+    let start = 0;
+    let end = 4;
 
     useEffect(() => {
         axios.get(`http://localhost:3000/contestants`)
@@ -62,7 +65,7 @@ export default function Selection4x2() {
             sortedContestants: sortedContestants,
             gridType: location.state
         }})
-    }
+    };
 
     return (
         <React.Fragment>
@@ -71,39 +74,38 @@ export default function Selection4x2() {
                     <button>Home</button>
                 </Link>
                 <button onClick={handleSubmit}>Submit</button>
+                <button onClick={() => setNumPages(numPages + 1)}>Add page</button>
             </div>
-            <div style={styles.page}>
-                <div className="container-fluid">
-                    <div className="row" style={styles.row}>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+            {numPages.map((obj, i) => {
+                return (
+                    <div style={styles.page} key={`page ${i + 1}`}>
+                        <div className="container-fluid">
+                            <div className="row" style={styles.row}>
+                                {selectedNames.slice(start, end).map(() => {
+                                    start += 1;
+                                    end += 1;
+                                    return (
+                                        <div className="col" key={`card ${start-1}`}>
+                                            <SelectCard4x2 searchList={searchList} cardNum={start-1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="row" style={styles.row}>
+                                {selectedNames.slice(start, end).map(() => {
+                                    start += 1;
+                                    end += 1;
+                                    return (
+                                        <div className="col" key={`card ${start-1}`}>
+                                            <SelectCard4x2 searchList={searchList} cardNum={start-1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
-                    <div className="row" style={styles.row}>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard4x2 searchList={searchList} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                )
+            })}
         </React.Fragment>
     )
 };

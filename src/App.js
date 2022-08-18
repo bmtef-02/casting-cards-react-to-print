@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PDF from "./components/PDFComponent";
 import Home from "./components/HomepageComponent";
 import Selection4x2 from "./components/Selection4x2Component";
