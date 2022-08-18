@@ -35,6 +35,7 @@ export default function SelectCard5x2({ searchList, cardNum, selectedNames, setS
                 onChange={handleFieldChange}
                 isClearable={true}
             />
+            <div>{`Card #${cardNum + 1}`}</div>
             <div>{`You chose: ${selectedNames[cardNum]}`}</div>
         </div>
     );

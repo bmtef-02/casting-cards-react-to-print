@@ -53,9 +53,11 @@ function PDF() {
                 </React.Fragment>
                 :
                 location.state.gridType === "5x2" ?
-                <Grid5x2 ref={componentRef} />
-                :
-                <h1>Grid type not found</h1>
+                    <React.Fragment>
+                        <Grid5x2 ref={componentRef} />
+                    </React.Fragment>
+                    :
+                    <h1>Grid type not found</h1>
             }
         </React.Fragment>
     );

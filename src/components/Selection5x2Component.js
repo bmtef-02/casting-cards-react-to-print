@@ -24,8 +24,11 @@ export default function Selection5x2() {
 
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(Array(10));
+    const [selectedNames, setSelectedNames] = useState(Array.from(Array(10)));
+    const [numPages, setNumPages] = useState([""]);
     const location = useLocation();
+    let start = 0;
+    let end = 5;
 
     useEffect(() => {
         axios.get(`http://localhost:3000/contestants`)
@@ -60,8 +63,17 @@ export default function Selection5x2() {
         navigate("/print", { state: {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: location.state
+            gridType: location.state,
+            numPages: numPages
         }})
+    }
+
+    const addPage = () => {
+        const newNumPages = [...numPages];
+        newNumPages.push("");
+        const newSelectedNames = selectedNames.concat(Array.from(Array(10)))
+        setNumPages(newNumPages);
+        setSelectedNames(newSelectedNames);
     }
 
     return (
@@ -71,45 +83,38 @@ export default function Selection5x2() {
                     <button>Home</button>
                 </Link>
                 <button onClick={handleSubmit}>Submit</button>
+                <button onClick={addPage}>Add page</button>
             </div>
-            <div style={styles.page}>
-                <div className="container-fluid">
-                    <div className="row" style={styles.row}>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={0} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={2} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={3} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={4} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+            {numPages.map((obj, i) => {
+                return (
+                    <div style={styles.page} key={`page ${i + 1}`}>
+                        <div className="container-fluid">
+                            <div className="row" style={styles.row}>
+                                {selectedNames.slice(start, end).map(() => {
+                                    start += 1;
+                                    end += 1;
+                                    return (
+                                        <div className="col" key={`card ${start - 1}`}>
+                                            <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="row" style={styles.row}>
+                                {selectedNames.slice(start, end).map(() => {
+                                    start += 1;
+                                    end += 1;
+                                    return (
+                                        <div className="col" key={`card ${start - 1}`}>
+                                            <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
-                    <div className="row" style={styles.row}>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={5} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={6} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={7} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={8} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                        <div className="col">
-                            <SelectCard5x2 searchList={searchList} cardNum={9} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                );
+            })}
         </React.Fragment>
     )
 };

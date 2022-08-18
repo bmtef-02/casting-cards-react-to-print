@@ -94,8 +94,8 @@ export default function Selection4x2() {
                                     start += 1;
                                     end += 1;
                                     return (
-                                        <div className="col" key={`card ${start-1}`}>
-                                            <SelectCard4x2 searchList={searchList} cardNum={start-1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        <div className="col" key={`card ${start - 1}`}>
+                                            <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                                         </div>
                                     );
                                 })}
@@ -105,8 +105,8 @@ export default function Selection4x2() {
                                     start += 1;
                                     end += 1;
                                     return (
-                                        <div className="col" key={`card ${start-1}`}>
-                                            <SelectCard4x2 searchList={searchList} cardNum={start-1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                        <div className="col" key={`card ${start - 1}`}>
+                                            <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
                                         </div>
                                     );
                                 })}

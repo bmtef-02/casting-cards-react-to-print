@@ -89,7 +89,7 @@ function CardComponent({selection, sortedContestants}) {
     } else {
         return (
             <div className="card rounded-0" style={styles.blankCard} />
-        )
+        );
     }
 };
 

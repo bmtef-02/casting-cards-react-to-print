@@ -32,6 +32,11 @@ const styles = {
         width: '1.91in',    // full width is 2.44in
         height: '0.21in',   // full height is 0.26in
         fontSize: '14px'
+    },
+    blankCard: {
+        border: 'none',
+        width: '1.99in',
+        height: '3.25in',
     }
 };
 
@@ -81,7 +86,9 @@ function MiniCard({selection, sortedContestants}) {
             </div>
         );
     } else {
-        return null
+        return (
+            <div className="card rounded-0" style={styles.blankCard} />
+        );
     }
 };
 
