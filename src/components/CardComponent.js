@@ -33,6 +33,11 @@ const styles = {
         width: '2.40in',    // full width is 2.44in
         height: '0.22in',   // full height is 0.26in
         fontSize: '16px'
+    },
+    blankCard: {
+        border: 'none',
+        width: '2.48in',
+        height: '3.92in',
     }
 };
 
@@ -82,7 +87,9 @@ function CardComponent({selection, sortedContestants}) {
             </div>
         );
     } else {
-        return null
+        return (
+            <div className="card rounded-0" style={styles.blankCard} />
+        )
     }
 };
 

@@ -15,6 +15,9 @@ function PDF() {
     `;
 
     const styles = {
+        navBar: {
+            marginBottom: '0.5cm',
+        },
         page: {
             width: '29.7cm',
             height: '21cm',
@@ -35,26 +38,25 @@ function PDF() {
         pageStyle: pageStyle,
     });
     
+    
     return (
         <React.Fragment>
-            <div>
+            <div style={styles.navBar}>
                 <Link to="/">
                     <button>Home</button>
                 </Link>
                 <button onClick={handlePrint}>Print</button>
             </div>
-            <div style={styles.page}>
-                { location.state.gridType === "4x2" ? 
-                    <React.Fragment>
-                        <Grid4x2 ref={componentRef} />
-                    </React.Fragment>
-                    :
-                    location.state.gridType === "5x2" ?
-                    <Grid5x2 ref={componentRef} />
-                    :
-                    <h1>Grid type not found</h1>
-                }
-            </div>
+            { location.state.gridType === "4x2" ? 
+                <React.Fragment>
+                    <Grid4x2 ref={componentRef} />
+                </React.Fragment>
+                :
+                location.state.gridType === "5x2" ?
+                <Grid5x2 ref={componentRef} />
+                :
+                <h1>Grid type not found</h1>
+            }
         </React.Fragment>
     );
 };

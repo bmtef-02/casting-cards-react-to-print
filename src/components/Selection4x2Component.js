@@ -63,7 +63,8 @@ export default function Selection4x2() {
         navigate("/print", { state: {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: location.state
+            gridType: location.state,
+            numPages: numPages
         }})
     };
 
