@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Grid4x2Example from "../img/Grid4x2Example.png";
 import Grid5x2Example from "../img/Grid5x2Example.png";
@@ -50,11 +49,11 @@ export default function Home() {
                 <div className="row" style={styles.gridSelectRow}>
                     <div className="col-md" style={styles.gridSelectCol}>
                         <h3>4x2 Grid</h3>
-                        <img src={Grid4x2Example} style={styles.img} name="4x2" onClick={handleClick} />
+                        <img src={Grid4x2Example} alt="Grid4x2Example" style={styles.img} name="4x2" onClick={handleClick} />
                     </div>
                     <div className="col-md" style={styles.gridSelectCol}>
                         <h3>5x2 Grid</h3>
-                        <img src={Grid5x2Example} style={styles.img} name="5x2" onClick={handleClick} />
+                        <img src={Grid5x2Example} alt="Grid5x2Example" style={styles.img} name="5x2" onClick={handleClick} />
                     </div>
                 </div>
             </div>

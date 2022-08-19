@@ -17,6 +17,11 @@ const styles = {
     },
     row: {
         margin: '10px'
+    },
+    addPageBtn: {
+        margin: "0 15px 0 0",
+        fontSize: "50px",
+        cursor: "pointer",
     }
 };
 
@@ -84,38 +89,40 @@ export default function Selection4x2() {
                         <button>Home</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>
-                    <button onClick={addPage}>Add page</button>
                 </div>
-                {numPages.map((obj, i) => {
-                    return (
-                        <div style={styles.page} key={`page ${i + 1}`}>
-                            <div className="container-fluid">
-                                <div className="row" style={styles.row}>
-                                    {selectedNames.slice(start, end).map(() => {
-                                        start += 1;
-                                        end += 1;
-                                        return (
-                                            <div className="col" key={`card ${start - 1}`}>
-                                                <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                <div className="row" style={styles.row}>
-                                    {selectedNames.slice(start, end).map(() => {
-                                        start += 1;
-                                        end += 1;
-                                        return (
-                                            <div className="col" key={`card ${start - 1}`}>
-                                                <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                                            </div>
-                                        );
-                                    })}
+                <div className="position-relative">
+                    {numPages.map((obj, i) => {
+                        return (
+                            <div style={styles.page} key={`page ${i + 1}`}>
+                                <div className="container-fluid">
+                                    <div className="row" style={styles.row}>
+                                        {selectedNames.slice(start, end).map(() => {
+                                            start += 1;
+                                            end += 1;
+                                            return (
+                                                <div className="col" key={`card ${start - 1}`}>
+                                                    <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="row" style={styles.row}>
+                                        {selectedNames.slice(start, end).map(() => {
+                                            start += 1;
+                                            end += 1;
+                                            return (
+                                                <div className="col" key={`card ${start - 1}`}>
+                                                    <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                    <i className="bi bi-plus-circle-fill position-absolute bottom-0 end-0" style={styles.addPageBtn} onClick={addPage} />
+                </div>
             </React.Fragment>
         );
     } else {
