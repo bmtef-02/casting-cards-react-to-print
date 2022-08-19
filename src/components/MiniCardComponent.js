@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import placeholder from "../img/placeholder.png"
 
 const styles = {
     card: {

@@ -57,7 +57,7 @@ function PDF() {
                         <Grid5x2 ref={componentRef} />
                     </React.Fragment>
                     :
-                    <h1>Grid type not found</h1>
+                    <h1>Grid type not found, go back to Homepage</h1>
             }
         </React.Fragment>
     );

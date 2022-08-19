@@ -76,45 +76,58 @@ export default function Selection5x2() {
         setSelectedNames(newSelectedNames);
     }
 
-    return (
-        <React.Fragment>
-            <div>
-                <Link to="/">
-                    <button>Home</button>
-                </Link>
-                <button onClick={handleSubmit}>Submit</button>
-                <button onClick={addPage}>Add page</button>
-            </div>
-            {numPages.map((obj, i) => {
-                return (
-                    <div style={styles.page} key={`page ${i + 1}`}>
-                        <div className="container-fluid">
-                            <div className="row" style={styles.row}>
-                                {selectedNames.slice(start, end).map(() => {
-                                    start += 1;
-                                    end += 1;
-                                    return (
-                                        <div className="col" key={`card ${start - 1}`}>
-                                            <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                            <div className="row" style={styles.row}>
-                                {selectedNames.slice(start, end).map(() => {
-                                    start += 1;
-                                    end += 1;
-                                    return (
-                                        <div className="col" key={`card ${start - 1}`}>
-                                            <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
-                                        </div>
-                                    );
-                                })}
+    if (location.state === "5x2") {
+        return (
+            <React.Fragment>
+                <div>
+                    <Link to="/">
+                        <button>Home</button>
+                    </Link>
+                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={addPage}>Add page</button>
+                </div>
+                {numPages.map((obj, i) => {
+                    return (
+                        <div style={styles.page} key={`page ${i + 1}`}>
+                            <div className="container-fluid">
+                                <div className="row" style={styles.row}>
+                                    {selectedNames.slice(start, end).map(() => {
+                                        start += 1;
+                                        end += 1;
+                                        return (
+                                            <div className="col" key={`card ${start - 1}`}>
+                                                <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <div className="row" style={styles.row}>
+                                    {selectedNames.slice(start, end).map(() => {
+                                        start += 1;
+                                        end += 1;
+                                        return (
+                                            <div className="col" key={`card ${start - 1}`}>
+                                                <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
-        </React.Fragment>
-    )
+                    );
+                })}
+            </React.Fragment>
+        );
+    } else {
+        return (
+            <React.Fragment>
+                <div>
+                    <Link to="/">
+                        <button>Home</button>
+                    </Link>
+                </div>
+                <h1>Grid Type Unknown. Please go back to Homepage.</h1>
+            </React.Fragment>
+        );
+    }
 };
