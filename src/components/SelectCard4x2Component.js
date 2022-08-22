@@ -36,7 +36,7 @@ export default function SelectCard4x2({ searchList, cardNum, selectedNames, setS
                 isClearable={true}
             />
             <div>{`Card #${cardNum + 1}`}</div>
-            <div>{`You chose: ${selectedNames[cardNum]}`}</div>
+            <div>You chose: {(selectedNames[cardNum] === undefined) ? `empty` :`${selectedNames[cardNum]}`}</div>
         </div>
     );
 };

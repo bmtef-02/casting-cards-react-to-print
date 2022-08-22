@@ -31,36 +31,112 @@ export default function Selection4x2() {
     const [searchList, setSearchList] = useState([]);
     const [selectedNames, setSelectedNames] = useState(Array.from(Array(8)));
     const [numPages, setNumPages] = useState([""]);
+    const [filter, setFilter] = useState("name-a-z");
     const location = useLocation();
     let start = 0;
     let end = 4;
 
     useEffect(() => {
+        let sortedArr = [];
+        let list = [];
         axios.get(`http://localhost:3000/contestants`)
         .then(resp => {
             const arr = resp.data;
-            const sortedArr = arr.sort((a, b) => {
-                let lastNameA = a.lastName.toUpperCase();
-                let lastNameB = b.lastName.toUpperCase();
-                let firstNameA = a.firstName.toUpperCase();
-                let firstNameB = b.firstName.toUpperCase();
+            if (filter === 'name-a-z' || null) {
+                sortedArr = arr.sort((a, b) => {
+                    let lastNameA = a.lastName.toUpperCase();
+                    let lastNameB = b.lastName.toUpperCase();
+                    let firstNameA = a.firstName.toUpperCase();
+                    let firstNameB = b.firstName.toUpperCase();
+    
+                    if (lastNameA === lastNameB) {
+                        return (firstNameA < firstNameB) ? -1 : (firstNameA > firstNameB) ? 1 : 0;
+                    }
+                    return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+                });
 
-                if (lastNameA === lastNameB) {
-                    return (firstNameA < firstNameB) ? -1 : (firstNameA > firstNameB) ? 1 : 0;
-                }
-                return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
-            });
-            const list = sortedArr.map(obj => {
-                return {
-                    value: `${obj.lastName}, ${obj.firstName}`,
-                    label: `${obj.lastName}, ${obj.firstName}`
-                }
-            })
+                list = sortedArr.map(obj => {
+                    return {
+                        value: `${obj.lastName}, ${obj.firstName}`,
+                        label: `${obj.lastName}, ${obj.firstName}`
+                    }
+                });
+            } else if (filter === 'name-z-a') {
+                sortedArr = arr.sort((a, b) => {
+                    let lastNameA = a.lastName.toUpperCase();
+                    let lastNameB = b.lastName.toUpperCase();
+                    let firstNameA = a.firstName.toUpperCase();
+                    let firstNameB = b.firstName.toUpperCase();
+    
+                    if (lastNameA === lastNameB) {
+                        return (firstNameA < firstNameB) ? 1 : (firstNameA > firstNameB) ? -1 : 0;
+                    }
+                    return (lastNameA < lastNameB) ? 1 : (lastNameA > lastNameB) ? -1 : 0;
+                });
+
+                list = sortedArr.map(obj => {
+                    return {
+                        value: `${obj.lastName}, ${obj.firstName}`,
+                        label: `${obj.lastName}, ${obj.firstName}`
+                    }
+                });
+            } else if (filter === 'age-ascending') {
+                sortedArr = arr.sort((a, b) => {
+                    let lastNameA = a.lastName.toUpperCase();
+                    let lastNameB = b.lastName.toUpperCase();
+
+                    if (a.age === b.age) {
+                        return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+                    }
+                    return (a.age < b.age) ? -1 : (a.age > b.age) ? 1 : 0;
+                });
+
+                list = sortedArr.map(obj => {
+                    return {
+                        value: `${obj.lastName}, ${obj.firstName}`,
+                        label: `${obj.lastName}, ${obj.firstName} (${obj.age})`
+                    }
+                });
+            } else if (filter === 'age-descending') {
+                sortedArr = arr.sort((a, b) => {
+                    let lastNameA = a.lastName.toUpperCase();
+                    let lastNameB = b.lastName.toUpperCase();
+
+                    if (a.age === b.age) {
+                        return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+                    }
+                    return (a.age < b.age) ? 1 : (a.age > b.age) ? -1 : 0;
+                });
+
+                list = sortedArr.map(obj => {
+                    return {
+                        value: `${obj.lastName}, ${obj.firstName}`,
+                        label: `${obj.lastName}, ${obj.firstName} (${obj.age})`
+                    }
+                });
+            } else if (filter === 'ethnicity') {
+                sortedArr = arr.sort((a, b) => {
+                    let lastNameA = a.lastName.toUpperCase();
+                    let lastNameB = b.lastName.toUpperCase();
+
+                    if (a.ethnicity === b.ethnicity) {
+                        return (lastNameA < lastNameB) ? -1 : (lastNameA > lastNameB) ? 1 : 0;
+                    }
+                    return (a.ethnicity < b.ethnicity) ? -1 : (a.ethnicity > b.ethnicity) ? 1 : 0;
+                });
+
+                list = sortedArr.map(obj => {
+                    return {
+                        value: `${obj.lastName}, ${obj.firstName}`,
+                        label: `${obj.lastName}, ${obj.firstName} (${obj.ethnicity})`
+                    }
+                });
+            }
             setSortedContestants(sortedArr);
             setSearchList(list);
         })
         .catch(err => console.error(err))
-    }, []);
+    }, [filter]);
 
     const navigate = useNavigate();
 
@@ -84,11 +160,33 @@ export default function Selection4x2() {
     if (location.state === "4x2") {
         return (
             <React.Fragment>
-                <div>
-                    <Link to="/">
-                        <button>Home</button>
-                    </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                <div className="container pt-2">
+                    <div className="row">
+                        <div className="col-auto">
+                            <Link to="/">
+                                <button className="btn btn-dark" href="/">Home</button>
+                            </Link>
+                        </div >
+                        <div className="col-auto">
+                            <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
+                        </div >
+                        <div className="col">
+                            <div className="row" style={{alignItems: "center", justifyContent: "flex-end" }}>
+                                <div className="col-auto">
+                                    <h5 className="m-0">Filter Options:</h5>
+                                </div>
+                                <div className="col-6">
+                                    <select className='form-select' onChange={(e) => setFilter(e.target.value)}>
+                                        <option value='name-a-z' defaultValue>Last Name (A-Z)</option>
+                                        <option value='name-z-a' defaultValue>Last Name (Z-A)</option>
+                                        <option value='age-ascending'>Age (Ascending)</option>
+                                        <option value='age-descending'>Age (Descending)</option>
+                                        <option value='ethnicity'>Ethnicity (A-Z)</option>
+                                    </select>
+                                </div>
+                            </div >
+                        </div >
+                    </div >
                 </div>
                 <div className="position-relative">
                     {numPages.map((obj, i) => {
