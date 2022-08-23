@@ -20,7 +20,7 @@ export default function SelectCard4x2({ searchList, cardNum, selectedNames, setS
         const newArray = [...selectedNames];
 
         if (selectedName === null) {
-            newArray[cardNum] = undefined;
+            newArray[cardNum] = "";
         } else {
             newArray[cardNum] = selectedName.value;
         }
@@ -36,7 +36,7 @@ export default function SelectCard4x2({ searchList, cardNum, selectedNames, setS
                 isClearable={true}
             />
             <div>{`Card #${cardNum + 1}`}</div>
-            <div>You chose: {(selectedNames[cardNum] === undefined) ? `empty` :`${selectedNames[cardNum]}`}</div>
+            <div>You chose: {(selectedNames[cardNum] === "") ? `empty` :`${selectedNames[cardNum]}`}</div>
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import placeholder from "../img/placeholder.png"
 
 const styles = {
     card: {
@@ -57,8 +56,6 @@ const resizeText = ({   // if fontSize is not changing text size, adjust the hei
             i -= step;
             el.style.fontSize = `${i}${unit}`;
         }
-
-
     });
 };
 
