@@ -29,7 +29,7 @@ export default function Selection5x2() {
 
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(Array.from(Array(10)));
+    const [selectedNames, setSelectedNames] = useState(Array.from(Array(10).fill("")));
     const [numPages, setNumPages] = useState([""]);
     const [filter, setFilter] = useState("name-a-z");
     const location = useLocation();
@@ -157,6 +157,23 @@ export default function Selection5x2() {
         setSelectedNames(newSelectedNames);
     }
 
+    const addMinusPage = (e) => {
+        const newNumPages = [...numPages];
+
+        if (e.target.id === "add") {
+            newNumPages.push("");
+            const newSelectedNames = selectedNames.concat(Array.from(Array(10).fill("")))
+            setNumPages(newNumPages);
+            setSelectedNames(newSelectedNames);
+        } else if (e.target.id === "minus") {
+            newNumPages.pop();
+            const newSelectedNames = selectedNames;
+            newSelectedNames.splice(selectedNames.length - 10, 10);
+            setNumPages(newNumPages);
+            setSelectedNames(newSelectedNames);
+        } else console.log("invalid button");
+    }
+
     if (location.state === "5x2") {
         return (
             <React.Fragment>
@@ -219,7 +236,18 @@ export default function Selection5x2() {
                             </div>
                         );
                     })}
-                    <i className="bi bi-plus-circle-fill position-absolute bottom-0 end-0" style={styles.addPageBtn} onClick={addPage} />
+                    <div className="position-absolute bottom-0 end-0" style={{ marginRight: "10px" }}>
+                        <div>
+                            <i className="bi bi-plus-circle-fill" id="add" style={styles.addPageBtn} onClick={addMinusPage} />
+                        </div>
+                        {numPages.length > 1 ?
+                            <div>
+                                <i className="bi bi-dash-circle-fill" id="minus" style={styles.addPageBtn} onClick={addMinusPage} />
+                            </div>
+                            :
+                            null
+                        }
+                    </div>
                 </div>
 
             </React.Fragment>
