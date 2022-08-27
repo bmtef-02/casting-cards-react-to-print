@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Grid4x2 from "./Grid4x2Component";
 import Grid5x2 from "./Grid5x2Component";
+import SaveModal from "./SaveModalComponent";
 
 export default function PDF() {
+
     const pageStyle = `
         @page {
             size: 29.7cm 21cm;
@@ -17,6 +19,7 @@ export default function PDF() {
     const componentRef = useRef();
     const location = useLocation();
     const navigate = useNavigate();
+    const [openModal, setOpenModal] = useState(false);
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -39,7 +42,6 @@ export default function PDF() {
         } else {
             navigate("/");
         }
-        
     };
     
     return (
@@ -55,7 +57,10 @@ export default function PDF() {
                         <button className="btn btn-success" onClick={handlePrint}>Print</button>
                     </div>
                     <div className="col-auto">
-                        <button className="btn btn-primary" onClick={handleEdit}>Edit</button>
+                        <button className="btn btn-danger" onClick={handleEdit}>Edit</button>
+                    </div>
+                    <div className="col-auto">
+                        <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
                     </div>
                 </div>
             </div>
@@ -71,6 +76,7 @@ export default function PDF() {
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
             }
+            <SaveModal openModal={openModal} setOpenModal={setOpenModal} />
         </React.Fragment>
     );
 };
