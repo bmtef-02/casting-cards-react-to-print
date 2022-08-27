@@ -27,12 +27,18 @@ const styles = {
 
 export default function Selection5x2() {
 
+    const location = useLocation();
+    const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(Array.from(Array(10).fill("")));
-    const [numPages, setNumPages] = useState([""]);
+    const [selectedNames, setSelectedNames] = useState(
+        location.state.selectedNames ? location.state.selectedNames : Array.from(Array(10).fill(""))
+    );
+    const [numPages, setNumPages] = useState(
+        location.state.numPages ? location.state.numPages : [""]
+    );
     const [filter, setFilter] = useState("name-a-z");
-    const location = useLocation();
+    
     let start = 0;
     let end = 5;
 
@@ -138,13 +144,11 @@ export default function Selection5x2() {
         .catch(err => console.error(err))
     }, [filter]);
 
-    const navigate = useNavigate();
-
     const handleSubmit = () => {
         navigate("/print", { state: {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: location.state,
+            gridType: location.state.gridType,
             numPages: numPages
         }})
     }
@@ -174,7 +178,7 @@ export default function Selection5x2() {
         } else console.log("invalid button");
     }
 
-    if (location.state === "5x2") {
+    if (location.state.gridType === "5x2") {
         return (
             <React.Fragment>
                 <div className="container pt-2">
@@ -203,7 +207,7 @@ export default function Selection5x2() {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 </div>
                 <div className="position-relative">
                     {numPages.map((obj, i) => {

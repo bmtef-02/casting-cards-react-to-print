@@ -32,10 +32,14 @@ export default function Home() {
         event.preventDefault();
         if (event.target.name === "4x2") {
             let path = `/selection4x2`;
-            navigate(path, { state: event.target.name });
+            navigate(path, { state: {
+                gridType: event.target.name
+            } });
         } else if (event.target.name === "5x2") {
             let path = `/selection5x2`;
-            navigate(path, { state: event.target.name })
+            navigate(path, { state: {
+                gridType: event.target.name
+            }})
         } else {
             console.log("event.target.name is not 4x2 nor 5x2");
         }

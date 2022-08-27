@@ -30,7 +30,12 @@ export default function SelectCard5x2({ searchList, cardNum, selectedNames, setS
 
     return (
         <div className="card rounded-0" style={styles.card}>
-            <Select 
+            <Select
+                defaultValue={
+                    selectedNames[cardNum] ?
+                    {value: selectedNames[cardNum], label: selectedNames[cardNum]}
+                    : null
+                }
                 options={searchList}
                 onChange={handleFieldChange}
                 isClearable={true}

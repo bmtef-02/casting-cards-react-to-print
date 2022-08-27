@@ -28,9 +28,17 @@ export default function SelectCard4x2({ searchList, cardNum, selectedNames, setS
         setSelectedNames(newArray);
     };
 
+    console.log(selectedNames)
+    console.log(searchList)
+
     return (
         <div className="card rounded-0" style={styles.card}>
-            <Select 
+            <Select
+                defaultValue={
+                    selectedNames[cardNum] ?
+                    {value: selectedNames[cardNum], label: selectedNames[cardNum]}
+                    : null
+                }
                 options={searchList}
                 onChange={handleFieldChange}
                 isClearable={true}
