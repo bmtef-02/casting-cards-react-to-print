@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SavedGrids() {
 
     const url = `http://localhost:3000/grids`;
+    const navigate = useNavigate();
     const [allGrids, setAllGrids] = useState([]);
 
     useEffect(() => {
@@ -17,7 +19,23 @@ export default function SavedGrids() {
 
     const handleClick = (event) => {
         event.preventDefault();
-        console.log(event.target.value)
+        const grid = allGrids.find(grid => grid._id === event.target.value)
+
+        if (grid.gridType === "4x2") {
+            navigate("/selection4x2", { state: {
+                selectedNames: grid.selectedNames,
+                gridType: grid.gridType,
+                numPages: grid.numPages
+            }});
+        } else if (grid.gridType === "5x2") {
+            navigate("/selection5x2", { state: {
+                selectedNames: grid.selectedNames,
+                gridType: grid.gridType,
+                numPages: grid.numPages
+            }});
+        } else {
+            navigate("/");
+        }
     }
 
     return (
