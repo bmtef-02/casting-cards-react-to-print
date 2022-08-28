@@ -39,7 +39,9 @@ export default function Home() {
             let path = `/selection5x2`;
             navigate(path, { state: {
                 gridType: event.target.name
-            }})
+            }});
+        } else if (event.target.name === "savedGrids") {
+            navigate(`/savedGrids`);
         } else {
             console.log("event.target.name is not 4x2 nor 5x2");
         }
@@ -59,6 +61,9 @@ export default function Home() {
                         <h3>5x2 Grid</h3>
                         <img src={Grid5x2Example} alt="Grid5x2Example" style={styles.img} name="5x2" onClick={handleClick} />
                     </div>
+                </div>
+                <div className="row">
+                    <button className="btn btn-primary" name="savedGrids" onClick={handleClick}>View Saved Grids</button>
                 </div>
             </div>
         </React.Fragment>

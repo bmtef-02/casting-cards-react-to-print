@@ -9,13 +9,15 @@ export default function SaveModal(props) {
     const { openModal, setOpenModal } = props;
     const [reqBody, setReqBody] = useState({
         showName: "",
-        season: null,
-        pitch: null,
+        season: "",
+        pitch: "",
         description: "",
         selectedNames: location.state.selectedNames,
         numPages: location.state.numPages,
         gridType: location.state.gridType
     });
+    const [validated, setValidated] = useState(false);
+    const url = `http://localhost:3000/grids`;
 
     const handleFieldChange = (event) => {
         if (event.target.name === "showName") {
@@ -41,31 +43,73 @@ export default function SaveModal(props) {
         }
     }
 
-    const handleSave = () => {
-        setOpenModal(false);
-        console.log('saved')
+    const handleSave = (event) => {
+        event.preventDefault();
+
+        if (event.currentTarget.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+
+            // let body = {
+            //     season: reqBody.season,
+            //     pitch: reqBody.pitch,
+            //     showName: reqBody.show,
+            //     description: reqBody.description,
+            //     selectedNames: reqBody.selectedNames,
+            //     gridType: reqBody.gridType,
+            //     numPages: reqBody.numPages,
+            // };
+
+            async function postGrid(url = "", data = {}) {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                return response.json();
+            };
+
+            postGrid(url, reqBody)
+            .then(response => {
+                console.log(response)
+                setOpenModal(false);
+            })
+            .catch(err => {
+                console.log("cannot post grid");
+                console.log(err);
+            })
+        }
+
+        setValidated(true);
     }
 
     return (
         <Modal show={openModal} onHide={() => setOpenModal(false)}>
-            <Modal.Header closeButton>
-                <Modal.Title>Save Grid</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
+            <Form noValidate validated={validated} onSubmit={handleSave}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Save Grid</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                     <Form.Group className="mb-3" controlId="showName">
                         <Form.Label>Show Name</Form.Label>
                         <Form.Control 
+                            required
                             type="text" 
                             placeholder="Enter the show name" 
                             onChange={handleFieldChange} 
                             name="showName"
                             value={reqBody.showName}
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a show name</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="season">
                         <Form.Label>Season</Form.Label>
                         <Form.Control 
+                            required
                             type="number"
                             min={1} 
                             placeholder="Enter the season number" 
@@ -74,10 +118,12 @@ export default function SaveModal(props) {
                             name="season"
                             value={reqBody.season}
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a season number</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="pitch">
-                        <Form.Label>Pitch</Form.Label>
+                        <Form.Label>Pitch/Round</Form.Label>
                         <Form.Control 
+                            required
                             type="number"
                             min={1} 
                             placeholder="Enter the pitch number" 
@@ -86,6 +132,7 @@ export default function SaveModal(props) {
                             name="pitch"
                             value={reqBody.pitch}
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a pitch/round number</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="description">
                         <Form.Label>Description (optional)</Form.Label>
@@ -98,12 +145,12 @@ export default function SaveModal(props) {
                             value={reqBody.description}
                         />
                     </Form.Group>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <button className="btn btn-secondary" onClick={() => setOpenModal(false)}>Close</button>
-                <button className="btn btn-primary" onClick={handleSave}>Save</button>
-            </Modal.Footer>
+               </Modal.Body> 
+               <Modal.Footer>
+                    <button className="btn btn-secondary" onClick={() => setOpenModal(false)}>Close</button>
+                    <button className="btn btn-primary" type="submit">Save</button>
+                </Modal.Footer>
+            </Form>
             {JSON.stringify(reqBody)}
         </Modal>
     );
