@@ -38,6 +38,7 @@ export default function Selection4x2() {
         location.state.numPages ? location.state.numPages : [""]
     );
     const [filter, setFilter] = useState("name-a-z");
+    const [changedGrid, setChangedGrid] = useState(false);
     
     let start = 0;
     let end = 4
@@ -149,7 +150,10 @@ export default function Selection4x2() {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
             gridType: location.state.gridType,
-            numPages: numPages
+            numPages: numPages,
+            gridId: location.state.gridId,
+            changedGrid: changedGrid,
+            grid: location.state.grid,
         }})
     };
 
@@ -212,7 +216,13 @@ export default function Selection4x2() {
                                             end += 1;
                                             return (
                                                 <div className="col" key={`card ${start - 1}`}>
-                                                    <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                    <SelectCard4x2 
+                                                        searchList={searchList} 
+                                                        cardNum={start - 1} 
+                                                        selectedNames={selectedNames} 
+                                                        setSelectedNames={setSelectedNames} 
+                                                        setChangedGrid={setChangedGrid}
+                                                    />
                                                 </div>
                                             );
                                         })}
@@ -223,7 +233,13 @@ export default function Selection4x2() {
                                             end += 1;
                                             return (
                                                 <div className="col" key={`card ${start - 1}`}>
-                                                    <SelectCard4x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                    <SelectCard4x2 
+                                                        searchList={searchList} 
+                                                        cardNum={start - 1} 
+                                                        selectedNames={selectedNames} 
+                                                        setSelectedNames={setSelectedNames} 
+                                                        setChangedGrid={setChangedGrid}
+                                                    />
                                                 </div>
                                             );
                                         })}

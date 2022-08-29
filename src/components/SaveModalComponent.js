@@ -6,18 +6,21 @@ import Form from 'react-bootstrap/Form';
 export default function SaveModal(props) {
 
     const location = useLocation();
-    const { openModal, setOpenModal } = props;
+    console.log(location.state);
+    const { openModal, setOpenModal, setConfirmModal } = props;
     const [reqBody, setReqBody] = useState({
-        showName: "",
-        season: "",
-        pitch: "",
-        description: "",
+        showName: location.state.grid ? location.state.grid.showName : "",
+        season: location.state.grid ? JSON.stringify(location.state.grid.season) : "",
+        pitch: location.state.grid ? JSON.stringify(location.state.grid.pitch) : "",
+        description: location.state.grid ? location.state.grid.description : "",
         selectedNames: location.state.selectedNames,
         numPages: location.state.numPages,
         gridType: location.state.gridType
     });
     const [validated, setValidated] = useState(false);
-    const url = `http://localhost:3000/grids`;
+    const [changedForm, setChangedForm] = useState(false);
+    const postUrl = `http://localhost:3000/grids`;
+    const putUrl = `http://localhost:3000/grids/${location.state.gridId}`;
 
     const handleFieldChange = (event) => {
         if (event.target.name === "showName") {
@@ -41,57 +44,75 @@ export default function SaveModal(props) {
                 [event.target.name]: event.target.value
             });
         }
+        setChangedForm(true);
     }
 
     const handleSave = (event) => {
         event.preventDefault();
 
+        async function postGrid(url = "", data = {}) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            return response.json();
+        };
+
+        async function putGrid(url = "", data = {}) {
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            return response.json();
+        };
+
         if (event.currentTarget.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         } else {
-
-            // let body = {
-            //     season: reqBody.season,
-            //     pitch: reqBody.pitch,
-            //     showName: reqBody.show,
-            //     description: reqBody.description,
-            //     selectedNames: reqBody.selectedNames,
-            //     gridType: reqBody.gridType,
-            //     numPages: reqBody.numPages,
-            // };
-
-            async function postGrid(url = "", data = {}) {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                return response.json();
-            };
-
-            postGrid(url, reqBody)
-            .then(response => {
-                console.log(response)
-                setOpenModal(false);
-            })
-            .catch(err => {
-                console.log("cannot post grid");
-                console.log(err);
-            })
+            if (location.state.grid) {
+                putGrid(putUrl, reqBody)
+                .then(response => {
+                    console.log(response);
+                    setOpenModal(false);
+                    setConfirmModal(true);
+                })
+                .catch(err => {
+                    console.log("cannot update grid");
+                    console.log(err);
+                })
+            } else {
+                postGrid(postUrl, reqBody)
+                .then(response => {
+                    console.log(response)
+                    setOpenModal(false);
+                })
+                .catch(err => {
+                    console.log("cannot post grid");
+                    console.log(err);
+                })
+            }
+            setChangedForm(false);
         }
 
         setValidated(true);
-    }
+    };
 
     return (
         <Modal show={openModal} onHide={() => setOpenModal(false)}>
             <Form noValidate validated={validated} onSubmit={handleSave}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Save Grid</Modal.Title>
+                    <Modal.Title>
+                        {location.state.grid ? "Update Grid" : "Save Grid"}
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group className="mb-3" controlId="showName">
@@ -148,7 +169,9 @@ export default function SaveModal(props) {
                </Modal.Body> 
                <Modal.Footer>
                     <button className="btn btn-secondary" onClick={() => setOpenModal(false)}>Close</button>
-                    <button className="btn btn-primary" type="submit">Save</button>
+                    <button className="btn btn-primary" type="submit" disabled={!location.state.changedGrid && !changedForm}>
+                        {location.state.grid ? "Update Grid" : "Save Grid"}
+                    </button>
                 </Modal.Footer>
             </Form>
             {JSON.stringify(reqBody)}

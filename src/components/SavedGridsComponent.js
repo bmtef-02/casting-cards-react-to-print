@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SavedGrids() {
@@ -15,7 +15,7 @@ export default function SavedGrids() {
             setAllGrids(arr);
         })
         .catch(err => console.error(err))
-    }, [])
+    }, [url])
 
     const handleClick = (event) => {
         event.preventDefault();
@@ -25,13 +25,17 @@ export default function SavedGrids() {
             navigate("/selection4x2", { state: {
                 selectedNames: grid.selectedNames,
                 gridType: grid.gridType,
-                numPages: grid.numPages
+                numPages: grid.numPages,
+                gridId: event.target.value,
+                grid: grid,
             }});
         } else if (grid.gridType === "5x2") {
             navigate("/selection5x2", { state: {
                 selectedNames: grid.selectedNames,
                 gridType: grid.gridType,
-                numPages: grid.numPages
+                numPages: grid.numPages,
+                gridId: event.target.value,
+                grid: grid,
             }});
         } else {
             navigate("/");

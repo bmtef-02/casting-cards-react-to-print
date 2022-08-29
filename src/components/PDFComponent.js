@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Grid4x2 from "./Grid4x2Component";
 import Grid5x2 from "./Grid5x2Component";
 import SaveModal from "./SaveModalComponent";
+import ConfirmModal from "./ConfirmModalComponent";
 
 export default function PDF() {
 
@@ -20,6 +21,8 @@ export default function PDF() {
     const location = useLocation();
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
+
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -31,19 +34,25 @@ export default function PDF() {
             navigate("/selection4x2", { state: {
                 selectedNames: location.state.selectedNames,
                 gridType: location.state.gridType,
-                numPages: location.state.numPages
+                numPages: location.state.numPages,
+                gridId: location.state.gridId,
+                grid: location.state.grid,
             }});
         } else  if (location.state.gridType === "5x2") {
             navigate("/selection5x2", { state: {
                 selectedNames: location.state.selectedNames,
                 gridType: location.state.gridType,
-                numPages: location.state.numPages
+                numPages: location.state.numPages,
+                gridId: location.state.gridId,
+                grid: location.state.grid,
             }});
         } else {
             navigate("/");
         }
     };
-    
+
+    console.log(location.state.gridId)
+
     return (
         <React.Fragment>
             <div className="container pt-2 pb-4">
@@ -60,8 +69,13 @@ export default function PDF() {
                         <button className="btn btn-danger" onClick={handleEdit}>Edit</button>
                     </div>
                     <div className="col-auto">
-                        <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
+                        {location.state.gridId ?
+                            <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
+                            :
+                            <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
+                        }
                     </div>
+                    {JSON.stringify(location.state.grid)}
                 </div>
             </div>
             { location.state.gridType === "4x2" ? 
@@ -76,7 +90,8 @@ export default function PDF() {
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
             }
-            <SaveModal openModal={openModal} setOpenModal={setOpenModal} />
+            <SaveModal openModal={openModal} setOpenModal={setOpenModal} setConfirmModal={setConfirmModal} />
+            <ConfirmModal confirmModal={confirmModal} setConfirmModal={setConfirmModal} />
         </React.Fragment>
     );
 };
