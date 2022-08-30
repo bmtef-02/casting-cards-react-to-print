@@ -39,6 +39,9 @@ export default function Selection4x2() {
     );
     const [filter, setFilter] = useState("name-a-z");
     const [changedGrid, setChangedGrid] = useState(false);
+    const gridType = location.state.gridType;
+    const gridId = location.state.gridId;
+    const grid = location.state.grid;
     
     let start = 0;
     let end = 4
@@ -149,11 +152,11 @@ export default function Selection4x2() {
         navigate("/print", { state: {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: location.state.gridType,
+            gridType: gridType,
             numPages: numPages,
-            gridId: location.state.gridId,
+            gridId: gridId,
             changedGrid: changedGrid,
-            grid: location.state.grid,
+            grid: grid,
         }})
     };
 
@@ -176,7 +179,7 @@ export default function Selection4x2() {
         } else console.log("invalid button");
     }
 
-    if (location.state.gridType === "4x2") {
+    if (gridType === "4x2") {
         return (
             <React.Fragment>
                 <div className="container pt-2">

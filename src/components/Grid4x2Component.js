@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import CardComponent from "./CardComponent";
 
 const styles = {
@@ -20,35 +19,40 @@ const styles = {
 };
 
 const Grid4x2 = React.forwardRef((props, ref) => {
-    const location = useLocation();
+    
+    const {
+        numPages,
+        selectedNames,
+        sortedContestants
+    } = props;
     let start = 0;
     let end = 4;
 
     return (
         <div ref={ref}>
-            {location.state.numPages.map((obj, i) => {
+            {numPages.map((obj, i) => {
                 return (
                     <div className="container-fluid" style={styles.page} key={`page ${i + 1}`}>
                         <div className="row" style={styles.row}>
-                            {location.state.selectedNames.slice(start, end).map(() => {
+                            {selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <CardComponent selection={location.state.selectedNames[start-1]} sortedContestants={location.state.sortedContestants} />
+                                        <CardComponent selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}
                         </div>
                         <div className="row" style={styles.row}>
-                            {location.state.selectedNames.slice(start, end).map(() => {
+                            {selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <CardComponent selection={location.state.selectedNames[start-1]} sortedContestants={location.state.sortedContestants} />
+                                        <CardComponent selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}

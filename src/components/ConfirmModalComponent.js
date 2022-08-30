@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 
@@ -11,14 +11,18 @@ export default function ConfirmModal(props) {
         setValidated, 
         newGrid,
         changedGrid,
+        gridId,
+        selectedNames,
+        sortedContestants,
+        gridType,
+        numPages,
     } = props;
     const navigate = useNavigate();
-    const location = useLocation();
     const [updatedGrid, setUpdatedGrid] = useState({})
 
     useEffect(() => {
-        if (location.state.gridId) {    // if grid was updated
-            axios.get(`http://localhost:3000/grids/${location.state.gridId}`)
+        if (gridId) {    // if grid was updated
+            axios.get(`http://localhost:3000/grids/${gridId}`)
             .then(resp => {
                 setUpdatedGrid(resp.data);
                 console.log(resp.data);
@@ -32,15 +36,15 @@ export default function ConfirmModal(props) {
             })
             .catch(err => console.error(err))
         }
-    }, [location.state.gridId, newGrid, confirmModal]);
+    }, [gridId, newGrid, confirmModal]);
 
     const handleClick = (event) => {
         if (event.target.name === "grid") {
             navigate("/print", { state: {
-                selectedNames: location.state.selectedNames,
-                sortedContestants: location.state.sortedContestants,
-                gridType: location.state.gridType,
-                numPages: location.state.numPages,
+                selectedNames: selectedNames,
+                sortedContestants: sortedContestants,
+                gridType: gridType,
+                numPages: numPages,
                 gridId: updatedGrid._id,
                 changedGrid: changedGrid,
                 grid: updatedGrid
@@ -56,7 +60,7 @@ export default function ConfirmModal(props) {
         <Modal show={confirmModal} background="static">
                 <Modal.Header>
                     <Modal.Title>
-                        {location.state.gridId ? "Grid Updated!" : "Grid Saved!"}
+                        {gridId ? "Grid Updated!" : "Grid Saved!"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

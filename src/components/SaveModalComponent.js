@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
@@ -13,21 +12,25 @@ export default function SaveModal(props) {
         setValidated, 
         setNewGrid,
         changedGrid,
-        setChangedGrid
+        setChangedGrid,
+        grid,
+        selectedNames,
+        numPages,
+        gridType,
+        gridId
     } = props;
-    const location = useLocation();
     const [reqBody, setReqBody] = useState({
-        showName: location.state.grid ? location.state.grid.showName : "",
-        season: location.state.grid ? JSON.stringify(location.state.grid.season) : "",
-        pitch: location.state.grid ? JSON.stringify(location.state.grid.pitch) : "",
-        description: location.state.grid ? location.state.grid.description : "",
-        selectedNames: location.state.selectedNames,
-        numPages: location.state.numPages,
-        gridType: location.state.gridType
+        showName: grid ? grid.showName : "",
+        season: grid ? JSON.stringify(grid.season) : "",
+        pitch: grid ? JSON.stringify(grid.pitch) : "",
+        description: grid ? grid.description : "",
+        selectedNames: selectedNames,
+        numPages: numPages,
+        gridType: gridType
     });
     const [changedForm, setChangedForm] = useState(false);
     const postUrl = `http://localhost:3000/grids`;
-    const putUrl = `http://localhost:3000/grids/${location.state.gridId}`;
+    const putUrl = `http://localhost:3000/grids/${gridId}`;
 
     const handleFieldChange = (event) => {
         if (event.target.name === "showName") {
@@ -85,7 +88,7 @@ export default function SaveModal(props) {
             event.preventDefault();
             event.stopPropagation();
         } else {
-            if (location.state.grid) {
+            if (grid) {
                 putGrid(putUrl, reqBody)
                 .then(response => {
                     console.log(response, "- updated");
@@ -121,7 +124,7 @@ export default function SaveModal(props) {
             <Form noValidate validated={validated} onSubmit={handleSave}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        {location.state.grid ? "Update Grid" : "Save Grid"}
+                        {grid ? "Update Grid" : "Save Grid"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -180,7 +183,7 @@ export default function SaveModal(props) {
                <Modal.Footer>
                     <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
                     <button className="btn btn-primary" type="submit" disabled={!changedGrid && !changedForm}>
-                        {location.state.grid ? "Update Grid" : "Save Grid"}
+                        {grid ? "Update Grid" : "Save Grid"}
                     </button>
                 </Modal.Footer>
             </Form>

@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import MiniCard from "./MiniCardComponent";
 
 const styles = {
@@ -20,35 +19,39 @@ const styles = {
 };
 
 const Grid5x2 = React.forwardRef((props, ref) => {
-    const location = useLocation();
+    const {
+        numPages,
+        selectedNames,
+        sortedContestants
+    } = props;
     let start = 0;
     let end = 5;
 
     return (
         <div ref={ref}>
-            {location.state.numPages.map((obj, i) => {
+            {numPages.map((obj, i) => {
                 return (
                     <div className="container-fluid" style={styles.page} key={`page ${i + 1}`}>
                         <div className="row" style={styles.row}>
-                            {location.state.selectedNames.slice(start, end).map(() => {
+                            {selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <MiniCard selection={location.state.selectedNames[start-1]} sortedContestants={location.state.sortedContestants} />
+                                        <MiniCard selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}
                         </div>
                         <div className="row" style={styles.row}>
-                            {location.state.selectedNames.slice(start, end).map(() => {
+                            {selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <MiniCard selection={location.state.selectedNames[start-1]} sortedContestants={location.state.sortedContestants} />
+                                        <MiniCard selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}

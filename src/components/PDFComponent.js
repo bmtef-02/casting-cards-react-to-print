@@ -25,6 +25,12 @@ export default function PDF() {
     const [validated, setValidated] = useState(false);
     const [newGrid, setNewGrid] = useState({});
     const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
+    const selectedNames = location.state.selectedNames;
+    const sortedContestants = location.state.sortedContestants;
+    const gridType = location.state.gridType;
+    const numPages = location.state.numPages;
+    const gridId = location.state.gridId;
+    const grid = location.state.grid;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -32,21 +38,21 @@ export default function PDF() {
     });
     
     const handleEdit = () => {
-        if (location.state.gridType === "4x2") {
+        if (gridType === "4x2") {
             navigate("/selection4x2", { state: {
-                selectedNames: location.state.selectedNames,
-                gridType: location.state.gridType,
-                numPages: location.state.numPages,
-                gridId: location.state.gridId,
-                grid: location.state.grid,
+                selectedNames: selectedNames,
+                gridType: gridType,
+                numPages: numPages,
+                gridId: gridId,
+                grid: grid,
             }});
-        } else  if (location.state.gridType === "5x2") {
+        } else  if (gridType === "5x2") {
             navigate("/selection5x2", { state: {
-                selectedNames: location.state.selectedNames,
-                gridType: location.state.gridType,
-                numPages: location.state.numPages,
-                gridId: location.state.gridId,
-                grid: location.state.grid,
+                selectedNames: selectedNames,
+                gridType: gridType,
+                numPages: numPages,
+                gridId: gridId,
+                grid: grid,
             }});
         } else {
             navigate("/");
@@ -71,23 +77,33 @@ export default function PDF() {
                         <button className="btn btn-danger" onClick={handleEdit}>Edit</button>
                     </div>
                     <div className="col-auto">
-                        {location.state.gridId ?
+                        {gridId ?
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
                             :
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
                         }
                     </div>
-                    {JSON.stringify(location.state.grid)}
+                    {JSON.stringify(grid)}
                 </div>
             </div>
-            { location.state.gridType === "4x2" ? 
+            { gridType === "4x2" ? 
                 <React.Fragment>
-                    <Grid4x2 ref={componentRef} />
+                    <Grid4x2 
+                        ref={componentRef} 
+                        numPages={numPages}
+                        selectedNames={selectedNames}
+                        sortedContestants={sortedContestants}
+                    />
                 </React.Fragment>
                 :
-                location.state.gridType === "5x2" ?
+                gridType === "5x2" ?
                     <React.Fragment>
-                        <Grid5x2 ref={componentRef} />
+                        <Grid5x2 
+                            ref={componentRef} 
+                            numPages={numPages}
+                            selectedNames={selectedNames}
+                            sortedContestants={sortedContestants}
+                        />
                     </React.Fragment>
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
@@ -101,6 +117,11 @@ export default function PDF() {
                 setNewGrid={setNewGrid}
                 changedGrid={changedGrid}
                 setChangedGrid={setChangedGrid}
+                grid={grid}
+                selectedNames={selectedNames}
+                numPages={numPages}
+                gridType={gridType}
+                gridId={gridId}
             />
             <ConfirmModal 
                 confirmModal={confirmModal} 
@@ -108,6 +129,11 @@ export default function PDF() {
                 setValidated={setValidated}
                 newGrid={newGrid}
                 hangedGrid={changedGrid}
+                gridId={gridId}
+                selectedNames={selectedNames}
+                sortedContestants={sortedContestants}
+                gridType={gridType}
+                numPages={numPages}
             />
         </React.Fragment>
     );

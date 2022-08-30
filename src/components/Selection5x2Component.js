@@ -38,6 +38,7 @@ export default function Selection5x2() {
         location.state.numPages ? location.state.numPages : [""]
     );
     const [filter, setFilter] = useState("name-a-z");
+    const gridType = location.state.gridType;
     
     let start = 0;
     let end = 5;
@@ -148,17 +149,9 @@ export default function Selection5x2() {
         navigate("/print", { state: {
             selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: location.state.gridType,
+            gridType: gridType,
             numPages: numPages
         }})
-    }
-
-    const addPage = () => {
-        const newNumPages = [...numPages];
-        newNumPages.push("");
-        const newSelectedNames = selectedNames.concat(Array.from(Array(10)))
-        setNumPages(newNumPages);
-        setSelectedNames(newSelectedNames);
     }
 
     const addMinusPage = (e) => {
@@ -178,7 +171,7 @@ export default function Selection5x2() {
         } else console.log("invalid button");
     }
 
-    if (location.state.gridType === "5x2") {
+    if (gridType === "5x2") {
         return (
             <React.Fragment>
                 <div className="container pt-2">
