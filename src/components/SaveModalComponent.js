@@ -10,27 +10,24 @@ export default function SaveModal(props) {
         setConfirmModal, 
         validated, 
         setValidated, 
-        setNewGrid,
         changedGrid,
         setChangedGrid,
         grid,
-        selectedNames,
-        numPages,
-        gridType,
-        gridId
+        setGrid,
+        setIsGridNew
     } = props;
     const [reqBody, setReqBody] = useState({
         showName: grid ? grid.showName : "",
         season: grid ? JSON.stringify(grid.season) : "",
         pitch: grid ? JSON.stringify(grid.pitch) : "",
         description: grid ? grid.description : "",
-        selectedNames: selectedNames,
-        numPages: numPages,
-        gridType: gridType
+        selectedNames: grid.selectedNames,
+        numPages: grid.numPages,
+        gridType: grid.gridType
     });
     const [changedForm, setChangedForm] = useState(false);
     const postUrl = `http://localhost:3000/grids`;
-    const putUrl = `http://localhost:3000/grids/${gridId}`;
+    const putUrl = `http://localhost:3000/grids/${grid._id}`;
 
     const handleFieldChange = (event) => {
         if (event.target.name === "showName") {
@@ -88,12 +85,14 @@ export default function SaveModal(props) {
             event.preventDefault();
             event.stopPropagation();
         } else {
-            if (grid) {
+            if (grid._id) {
                 putGrid(putUrl, reqBody)
                 .then(response => {
                     console.log(response, "- updated");
+                    setGrid(response);
                     setOpenModal(false);
                     setConfirmModal(true);
+                    setIsGridNew(false);
                 })
                 .catch(err => {
                     console.log("cannot update grid");
@@ -103,9 +102,10 @@ export default function SaveModal(props) {
                 postGrid(postUrl, reqBody)
                 .then(response => {
                     console.log(response, "- saved");
-                    setNewGrid(response);
+                    setGrid(response);
                     setOpenModal(false);
                     setConfirmModal(true);
+                    setIsGridNew(true);
                 })
                 .catch(err => {
                     console.log("cannot post grid");
@@ -124,7 +124,7 @@ export default function SaveModal(props) {
             <Form noValidate validated={validated} onSubmit={handleSave}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        {grid ? "Update Grid" : "Save Grid"}
+                        {grid._id ? "Update Grid" : "Save Grid"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -183,7 +183,7 @@ export default function SaveModal(props) {
                <Modal.Footer>
                     <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
                     <button className="btn btn-primary" type="submit" disabled={!changedGrid && !changedForm}>
-                        {grid ? "Update Grid" : "Save Grid"}
+                        {grid._id ? "Update Grid" : "Save Grid"}
                     </button>
                 </Modal.Footer>
             </Form>

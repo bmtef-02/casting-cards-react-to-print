@@ -21,8 +21,9 @@ const styles = {
 const Grid4x2 = React.forwardRef((props, ref) => {
     
     const {
-        numPages,
-        selectedNames,
+        // numPages,
+        // selectedNames,
+        grid,
         sortedContestants
     } = props;
     let start = 0;
@@ -30,29 +31,29 @@ const Grid4x2 = React.forwardRef((props, ref) => {
 
     return (
         <div ref={ref}>
-            {numPages.map((obj, i) => {
+            {grid.numPages.map((obj, i) => {
                 return (
                     <div className="container-fluid" style={styles.page} key={`page ${i + 1}`}>
                         <div className="row" style={styles.row}>
-                            {selectedNames.slice(start, end).map(() => {
+                            {grid.selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <CardComponent selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
+                                        <CardComponent selection={grid.selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}
                         </div>
                         <div className="row" style={styles.row}>
-                            {selectedNames.slice(start, end).map(() => {
+                            {grid.selectedNames.slice(start, end).map(() => {
                                 start += 1;
                                 end += 1;
 
                                 return (
                                     <div className="col" key={`card ${start-1}`}>
-                                        <CardComponent selection={selectedNames[start-1]} sortedContestants={sortedContestants} />
+                                        <CardComponent selection={grid.selectedNames[start-1]} sortedContestants={sortedContestants} />
                                     </div>
                                 );
                             })}

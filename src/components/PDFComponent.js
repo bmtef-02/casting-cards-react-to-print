@@ -21,21 +21,18 @@ export default function PDF() {
     const location = useLocation();
     console.log(location.state);
     const navigate = useNavigate();
-    const grid = location.state.grid;
+    const [grid, setGrid] = useState(location.state.grid);
+    console.log(grid)
     const [openModal, setOpenModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [validated, setValidated] = useState(false);
-    const [newGrid, setNewGrid] = useState({});
     const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
-    // const selectedNames = location.state.selectedNames;
     const selectedNames = grid.selectedNames;
     const sortedContestants = location.state.sortedContestants;
-    // const gridType = location.state.gridType;
     const gridType = grid.gridType;
-    // const numPages = location.state.numPages;
     const numPages = grid.numPages;
-    // const gridId = grid ? grid._id : "";
     const gridId = grid._id;
+    const [isGridNew, setIsGridNew] = useState(true);
     
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -45,10 +42,6 @@ export default function PDF() {
     const handleEdit = () => {
         if (gridType === "4x2") {
             navigate("/selection4x2", { state: {
-                selectedNames: selectedNames,
-                gridType: gridType,
-                numPages: numPages,
-                gridId: gridId,
                 grid: grid,
             }});
         } else  if (gridType === "5x2") {
@@ -92,10 +85,9 @@ export default function PDF() {
             { gridType === "4x2" ? 
                 <React.Fragment>
                     <Grid4x2 
-                        ref={componentRef} 
-                        numPages={numPages}
-                        selectedNames={selectedNames}
+                        ref={componentRef}
                         sortedContestants={sortedContestants}
+                        grid={grid}
                     />
                 </React.Fragment>
                 :
@@ -117,26 +109,18 @@ export default function PDF() {
                 setConfirmModal={setConfirmModal} 
                 validated={validated} 
                 setValidated={setValidated}
-                setNewGrid={setNewGrid}
                 changedGrid={changedGrid}
                 setChangedGrid={setChangedGrid}
                 grid={grid}
-                selectedNames={selectedNames}
-                numPages={numPages}
-                gridType={gridType}
-                gridId={gridId}
+                setGrid={setGrid}
+                setIsGridNew={setIsGridNew}
             />
             <ConfirmModal 
                 confirmModal={confirmModal} 
                 setConfirmModal={setConfirmModal} 
                 setValidated={setValidated}
-                newGrid={newGrid}
-                hangedGrid={changedGrid}
-                gridId={gridId}
-                selectedNames={selectedNames}
-                sortedContestants={sortedContestants}
-                gridType={gridType}
-                numPages={numPages}
+                grid={grid}
+                isGridNew={isGridNew}
             />
         </React.Fragment>
     );

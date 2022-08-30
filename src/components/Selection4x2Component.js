@@ -32,11 +32,11 @@ export default function Selection4x2() {
     const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    // const grid = location.state.grid ? location.state.grid : null;
     const [grid, setGrid] = useState(
         location.state.grid ? location.state.grid :
         {
             _id: "",
+            description: "",
             gridType: location.state.gridType,
             numPages: [""],
             pitch: "",
@@ -44,14 +44,7 @@ export default function Selection4x2() {
             selectedNames: Array.from(Array(8).fill("")),
             showName: ""
         }
-    )
-    // const [selectedNames, setSelectedNames] = useState(
-    //     grid ? grid.selectedNames : Array.from(Array(8).fill(""))
-    // );
-    // const [numPages, setNumPages] = useState(
-    //     grid ? grid.numPages : [""]
-    // );
-    // const gridType = grid.gridType ? grid.gridType : location.state.gridType;   // location.state.gridType from HomePageComponent.js
+    );
     
     const [filter, setFilter] = useState("name-a-z");
     const [changedGrid, setChangedGrid] = useState(false);
@@ -163,12 +156,7 @@ export default function Selection4x2() {
 
     const handleSubmit = () => {
         navigate("/print", { state: {
-            // selectedNames: selectedNames,
-            // selectedNames: grid.selectedNames,
             sortedContestants: sortedContestants,
-            // gridType: gridType,
-            // gridType: grid.gridType,
-            // numPages: grid.numPages,
             changedGrid: changedGrid,
             grid: grid,
         }})
@@ -180,8 +168,6 @@ export default function Selection4x2() {
         if (e.target.id === "add") {
             newNumPages.push("");
             const newSelectedNames = grid.selectedNames.concat(Array.from(Array(8).fill("")))
-            // setNumPages(newNumPages);
-            // setSelectedNames(newSelectedNames);
            setGrid({
                 ...grid,
                 numPages: newNumPages,
@@ -192,8 +178,6 @@ export default function Selection4x2() {
             newNumPages.pop();
             const newSelectedNames = grid.selectedNames;
             newSelectedNames.splice(grid.selectedNames.length - 8, 8);
-            // setNumPages(newNumPages);
-            // setSelectedNames(newSelectedNames);
             setGrid({
                 ...grid,
                 numPages: newNumPages,
@@ -249,7 +233,6 @@ export default function Selection4x2() {
                                                         searchList={searchList} 
                                                         cardNum={start - 1} 
                                                         selectedNames={grid.selectedNames} 
-                                                        // setSelectedNames={setSelectedNames} 
                                                         setGrid={setGrid}
                                                         grid={grid}
                                                         setChangedGrid={setChangedGrid}
@@ -266,9 +249,7 @@ export default function Selection4x2() {
                                                 <div className="col" key={`card ${start - 1}`}>
                                                     <SelectCard4x2 
                                                         searchList={searchList} 
-                                                        cardNum={start - 1} 
-                                                        selectedNames={grid.selectedNames} 
-                                                        // setSelectedNames={setSelectedNames} 
+                                                        cardNum={start - 1}
                                                         setGrid={setGrid}
                                                         grid={grid}
                                                         setChangedGrid={setChangedGrid}
@@ -309,5 +290,4 @@ export default function Selection4x2() {
             </React.Fragment>
         );
     }
-    
 };
