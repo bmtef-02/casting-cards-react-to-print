@@ -5,9 +5,8 @@ import Form from 'react-bootstrap/Form';
 
 export default function SaveModal(props) {
 
-    const location = useLocation();
-    console.log(location.state);
     const { openModal, setOpenModal, setConfirmModal } = props;
+    const location = useLocation();
     const [reqBody, setReqBody] = useState({
         showName: location.state.grid ? location.state.grid.showName : "",
         season: location.state.grid ? JSON.stringify(location.state.grid.season) : "",
@@ -49,6 +48,7 @@ export default function SaveModal(props) {
 
     const handleSave = (event) => {
         event.preventDefault();
+        console.log('handleSave triggered')
 
         async function postGrid(url = "", data = {}) {
             const response = await fetch(url, {
@@ -168,7 +168,7 @@ export default function SaveModal(props) {
                     </Form.Group>
                </Modal.Body> 
                <Modal.Footer>
-                    <button className="btn btn-secondary" onClick={() => setOpenModal(false)}>Close</button>
+                    <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
                     <button className="btn btn-primary" type="submit" disabled={!location.state.changedGrid && !changedForm}>
                         {location.state.grid ? "Update Grid" : "Save Grid"}
                     </button>

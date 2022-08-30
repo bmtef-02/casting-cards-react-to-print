@@ -165,12 +165,14 @@ export default function Selection4x2() {
             const newSelectedNames = selectedNames.concat(Array.from(Array(8).fill("")))
             setNumPages(newNumPages);
             setSelectedNames(newSelectedNames);
+            setChangedGrid(true);
         } else if (e.target.id === "minus") {
             newNumPages.pop();
             const newSelectedNames = selectedNames;
             newSelectedNames.splice(selectedNames.length - 8, 8);
             setNumPages(newNumPages);
             setSelectedNames(newSelectedNames);
+            setChangedGrid(true);
         } else console.log("invalid button");
     }
 

@@ -51,8 +51,6 @@ export default function PDF() {
         }
     };
 
-    console.log(location.state.gridId)
-
     return (
         <React.Fragment>
             <div className="container pt-2 pb-4">
