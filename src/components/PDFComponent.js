@@ -40,11 +40,11 @@ export default function PDF() {
     });
     
     const handleEdit = () => {
-        if (gridType === "4x2") {
+        if (grid.gridType === "4x2") {
             navigate("/selection4x2", { state: {
                 grid: grid,
             }});
-        } else  if (gridType === "5x2") {
+        } else if (grid.gridType === "5x2") {
             navigate("/selection5x2", { state: {
                 selectedNames: selectedNames,
                 gridType: gridType,
@@ -73,7 +73,7 @@ export default function PDF() {
                         <button className="btn btn-danger" onClick={handleEdit}>Edit</button>
                     </div>
                     <div className="col-auto">
-                        {gridId ?
+                        {grid._id ?
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
                             :
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
@@ -82,7 +82,7 @@ export default function PDF() {
                     {JSON.stringify(grid)}
                 </div>
             </div>
-            { gridType === "4x2" ? 
+            { grid.gridType === "4x2" ? 
                 <React.Fragment>
                     <Grid4x2 
                         ref={componentRef}
@@ -91,7 +91,7 @@ export default function PDF() {
                     />
                 </React.Fragment>
                 :
-                gridType === "5x2" ?
+                grid.gridType === "5x2" ?
                     <React.Fragment>
                         <Grid5x2 
                             ref={componentRef} 

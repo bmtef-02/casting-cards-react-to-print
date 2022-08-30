@@ -21,8 +21,6 @@ const styles = {
 const Grid4x2 = React.forwardRef((props, ref) => {
     
     const {
-        // numPages,
-        // selectedNames,
         grid,
         sortedContestants
     } = props;
