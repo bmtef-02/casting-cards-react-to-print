@@ -19,7 +19,9 @@ export default function PDF() {
     
     const componentRef = useRef();
     const location = useLocation();
+    console.log(location.state);
     const navigate = useNavigate();
+    const grid = location.state.grid;
     const [openModal, setOpenModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -29,9 +31,8 @@ export default function PDF() {
     const sortedContestants = location.state.sortedContestants;
     const gridType = location.state.gridType;
     const numPages = location.state.numPages;
-    const gridId = location.state.gridId;
-    const grid = location.state.grid;
-
+    const gridId = grid ? grid._id : null;
+    
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         pageStyle: pageStyle,
@@ -58,8 +59,6 @@ export default function PDF() {
             navigate("/");
         }
     };
-
-    console.log(location.state);
 
     return (
         <React.Fragment>

@@ -28,21 +28,22 @@ const styles = {
 export default function Selection4x2() {
 
     const location = useLocation();
+    console.log(location.state)
     const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
+    const grid = location.state.grid ? location.state.grid : null;
     const [selectedNames, setSelectedNames] = useState(
-        location.state.selectedNames ? location.state.selectedNames : Array.from(Array(8).fill(""))
+        grid ? grid.selectedNames : Array.from(Array(8).fill(""))
     );
     const [numPages, setNumPages] = useState(
-        location.state.numPages ? location.state.numPages : [""]
+        grid ? grid.numPages : [""]
     );
+    const gridType = grid ? grid.gridType : location.state.gridType;   // location.state.gridType from HomePageComponent.js
+    
     const [filter, setFilter] = useState("name-a-z");
     const [changedGrid, setChangedGrid] = useState(false);
-    const gridType = location.state.gridType;
-    const gridId = location.state.gridId;
-    const grid = location.state.grid;
-    
+
     let start = 0;
     let end = 4
 
@@ -154,7 +155,6 @@ export default function Selection4x2() {
             sortedContestants: sortedContestants,
             gridType: gridType,
             numPages: numPages,
-            gridId: gridId,
             changedGrid: changedGrid,
             grid: grid,
         }})

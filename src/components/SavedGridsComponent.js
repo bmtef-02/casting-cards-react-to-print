@@ -23,10 +23,6 @@ export default function SavedGrids() {
 
         if (grid.gridType === "4x2") {
             navigate("/selection4x2", { state: {
-                selectedNames: grid.selectedNames,
-                gridType: grid.gridType,
-                numPages: grid.numPages,
-                gridId: event.target.value,
                 grid: grid,
             }});
         } else if (grid.gridType === "5x2") {
