@@ -27,11 +27,15 @@ export default function PDF() {
     const [validated, setValidated] = useState(false);
     const [newGrid, setNewGrid] = useState({});
     const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
-    const selectedNames = location.state.selectedNames;
+    // const selectedNames = location.state.selectedNames;
+    const selectedNames = grid.selectedNames;
     const sortedContestants = location.state.sortedContestants;
-    const gridType = location.state.gridType;
-    const numPages = location.state.numPages;
-    const gridId = grid ? grid._id : null;
+    // const gridType = location.state.gridType;
+    const gridType = grid.gridType;
+    // const numPages = location.state.numPages;
+    const numPages = grid.numPages;
+    // const gridId = grid ? grid._id : "";
+    const gridId = grid._id;
     
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,

@@ -32,14 +32,26 @@ export default function Selection4x2() {
     const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const grid = location.state.grid ? location.state.grid : null;
-    const [selectedNames, setSelectedNames] = useState(
-        grid ? grid.selectedNames : Array.from(Array(8).fill(""))
-    );
-    const [numPages, setNumPages] = useState(
-        grid ? grid.numPages : [""]
-    );
-    const gridType = grid ? grid.gridType : location.state.gridType;   // location.state.gridType from HomePageComponent.js
+    // const grid = location.state.grid ? location.state.grid : null;
+    const [grid, setGrid] = useState(
+        location.state.grid ? location.state.grid :
+        {
+            _id: "",
+            gridType: location.state.gridType,
+            numPages: [""],
+            pitch: "",
+            season: "",
+            selectedNames: Array.from(Array(8).fill("")),
+            showName: ""
+        }
+    )
+    // const [selectedNames, setSelectedNames] = useState(
+    //     grid ? grid.selectedNames : Array.from(Array(8).fill(""))
+    // );
+    // const [numPages, setNumPages] = useState(
+    //     grid ? grid.numPages : [""]
+    // );
+    // const gridType = grid.gridType ? grid.gridType : location.state.gridType;   // location.state.gridType from HomePageComponent.js
     
     const [filter, setFilter] = useState("name-a-z");
     const [changedGrid, setChangedGrid] = useState(false);
@@ -151,35 +163,47 @@ export default function Selection4x2() {
 
     const handleSubmit = () => {
         navigate("/print", { state: {
-            selectedNames: selectedNames,
+            // selectedNames: selectedNames,
+            // selectedNames: grid.selectedNames,
             sortedContestants: sortedContestants,
-            gridType: gridType,
-            numPages: numPages,
+            // gridType: gridType,
+            // gridType: grid.gridType,
+            // numPages: grid.numPages,
             changedGrid: changedGrid,
             grid: grid,
         }})
     };
 
     const addMinusPage = (e) => {
-        const newNumPages = [...numPages];
+        const newNumPages = [...grid.numPages];
 
         if (e.target.id === "add") {
             newNumPages.push("");
-            const newSelectedNames = selectedNames.concat(Array.from(Array(8).fill("")))
-            setNumPages(newNumPages);
-            setSelectedNames(newSelectedNames);
+            const newSelectedNames = grid.selectedNames.concat(Array.from(Array(8).fill("")))
+            // setNumPages(newNumPages);
+            // setSelectedNames(newSelectedNames);
+           setGrid({
+                ...grid,
+                numPages: newNumPages,
+                selectedNames: newSelectedNames
+            });
             setChangedGrid(true);
         } else if (e.target.id === "minus") {
             newNumPages.pop();
-            const newSelectedNames = selectedNames;
-            newSelectedNames.splice(selectedNames.length - 8, 8);
-            setNumPages(newNumPages);
-            setSelectedNames(newSelectedNames);
+            const newSelectedNames = grid.selectedNames;
+            newSelectedNames.splice(grid.selectedNames.length - 8, 8);
+            // setNumPages(newNumPages);
+            // setSelectedNames(newSelectedNames);
+            setGrid({
+                ...grid,
+                numPages: newNumPages,
+                selectedNames: newSelectedNames
+            });
             setChangedGrid(true);
         } else console.log("invalid button");
     }
 
-    if (gridType === "4x2") {
+    if (grid.gridType === "4x2") {
         return (
             <React.Fragment>
                 <div className="container pt-2">
@@ -211,12 +235,12 @@ export default function Selection4x2() {
                     </div>
                 </div>
                 <div className="position-relative">
-                    {numPages.map((obj, i) => {
+                    {grid.numPages.map((obj, i) => {
                         return (
                             <div style={styles.page} key={`page ${i + 1}`}>
                                 <div className="container-fluid">
                                     <div className="row" style={styles.row}>
-                                        {selectedNames.slice(start, end).map(() => {
+                                        {grid.selectedNames.slice(start, end).map(() => {
                                             start += 1;
                                             end += 1;
                                             return (
@@ -224,8 +248,10 @@ export default function Selection4x2() {
                                                     <SelectCard4x2 
                                                         searchList={searchList} 
                                                         cardNum={start - 1} 
-                                                        selectedNames={selectedNames} 
-                                                        setSelectedNames={setSelectedNames} 
+                                                        selectedNames={grid.selectedNames} 
+                                                        // setSelectedNames={setSelectedNames} 
+                                                        setGrid={setGrid}
+                                                        grid={grid}
                                                         setChangedGrid={setChangedGrid}
                                                     />
                                                 </div>
@@ -233,7 +259,7 @@ export default function Selection4x2() {
                                         })}
                                     </div>
                                     <div className="row" style={styles.row}>
-                                        {selectedNames.slice(start, end).map(() => {
+                                        {grid.selectedNames.slice(start, end).map(() => {
                                             start += 1;
                                             end += 1;
                                             return (
@@ -241,8 +267,10 @@ export default function Selection4x2() {
                                                     <SelectCard4x2 
                                                         searchList={searchList} 
                                                         cardNum={start - 1} 
-                                                        selectedNames={selectedNames} 
-                                                        setSelectedNames={setSelectedNames} 
+                                                        selectedNames={grid.selectedNames} 
+                                                        // setSelectedNames={setSelectedNames} 
+                                                        setGrid={setGrid}
+                                                        grid={grid}
                                                         setChangedGrid={setChangedGrid}
                                                     />
                                                 </div>
@@ -257,7 +285,7 @@ export default function Selection4x2() {
                         <div>
                             <i className="bi bi-plus-circle-fill" id="add" style={styles.addPageBtn} onClick={addMinusPage} />
                         </div>
-                        {numPages.length > 1 ?
+                        {grid.numPages.length > 1 ?
                             <div>
                                 <i className="bi bi-dash-circle-fill" id="minus" style={styles.addPageBtn} onClick={addMinusPage} />
                             </div>

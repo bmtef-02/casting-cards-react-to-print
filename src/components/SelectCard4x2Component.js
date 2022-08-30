@@ -14,7 +14,7 @@ const styles = {
     }
 };
 
-export default function SelectCard4x2({ searchList, cardNum, selectedNames, setSelectedNames, setChangedGrid }) {
+export default function SelectCard4x2({ searchList, cardNum, selectedNames, setSelectedNames, setChangedGrid, setGrid, grid }) {
 
     const handleFieldChange = (selectedName) => {
         const newArray = [...selectedNames];
@@ -25,7 +25,11 @@ export default function SelectCard4x2({ searchList, cardNum, selectedNames, setS
             newArray[cardNum] = selectedName.value;
         }
 
-        setSelectedNames(newArray);
+        // setSelectedNames(newArray);
+        setGrid({
+            ...grid,
+            selectedNames: newArray
+        })
         setChangedGrid(true)
     };
 
