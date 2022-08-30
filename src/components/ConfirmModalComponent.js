@@ -11,12 +11,14 @@ export default function ConfirmModal(props) {
     const [updatedGrid, setUpdatedGrid] = useState({})
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/grids/${location.state.gridId}`)
-        .then(resp => {
-            setUpdatedGrid(resp.data)
-            console.log(resp.data)
-        })
-        .catch(err => console.error(err))
+        if (location.state.gridId) {
+            axios.get(`http://localhost:3000/grids/${location.state.gridId}`)
+            .then(resp => {
+                setUpdatedGrid(resp.data)
+                console.log(resp.data)
+            })
+            .catch(err => console.error(err))
+        }
     }, [location.state.gridId, confirmModal]);
 
     const handleClick = (event) => {
