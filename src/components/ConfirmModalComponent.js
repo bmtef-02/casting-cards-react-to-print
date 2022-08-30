@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function ConfirmModal(props) {
 
-    const { confirmModal, setConfirmModal } = props;
+    const { confirmModal, setConfirmModal, setValidated } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const [updatedGrid, setUpdatedGrid] = useState({})
@@ -33,6 +33,7 @@ export default function ConfirmModal(props) {
                 grid: updatedGrid
             }})
             setConfirmModal(false);
+            setValidated(false);
         } else {
             navigate("/")
         }

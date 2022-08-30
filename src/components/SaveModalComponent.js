@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 export default function SaveModal(props) {
 
-    const { openModal, setOpenModal, setConfirmModal } = props;
+    const { openModal, setOpenModal, setConfirmModal, validated, setValidated } = props;
     const location = useLocation();
     const [reqBody, setReqBody] = useState({
         showName: location.state.grid ? location.state.grid.showName : "",
@@ -16,7 +16,6 @@ export default function SaveModal(props) {
         numPages: location.state.numPages,
         gridType: location.state.gridType
     });
-    const [validated, setValidated] = useState(false);
     const [changedForm, setChangedForm] = useState(false);
     const postUrl = `http://localhost:3000/grids`;
     const putUrl = `http://localhost:3000/grids/${location.state.gridId}`;
@@ -48,7 +47,6 @@ export default function SaveModal(props) {
 
     const handleSave = (event) => {
         event.preventDefault();
-        console.log('handleSave triggered')
 
         async function postGrid(url = "", data = {}) {
             const response = await fetch(url, {
