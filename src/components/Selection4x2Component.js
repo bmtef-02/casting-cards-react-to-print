@@ -28,7 +28,6 @@ const styles = {
 export default function Selection4x2() {
 
     const location = useLocation();
-    console.log(location.state)
     const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
@@ -232,7 +231,6 @@ export default function Selection4x2() {
                                                     <SelectCard4x2 
                                                         searchList={searchList} 
                                                         cardNum={start - 1} 
-                                                        selectedNames={grid.selectedNames} 
                                                         setGrid={setGrid}
                                                         grid={grid}
                                                         setChangedGrid={setChangedGrid}

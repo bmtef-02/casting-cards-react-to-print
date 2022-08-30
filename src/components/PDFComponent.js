@@ -19,19 +19,13 @@ export default function PDF() {
     
     const componentRef = useRef();
     const location = useLocation();
-    console.log(location.state);
     const navigate = useNavigate();
     const [grid, setGrid] = useState(location.state.grid);
-    console.log(grid)
     const [openModal, setOpenModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [validated, setValidated] = useState(false);
     const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
-    const selectedNames = grid.selectedNames;
     const sortedContestants = location.state.sortedContestants;
-    const gridType = grid.gridType;
-    const numPages = grid.numPages;
-    const gridId = grid._id;
     const [isGridNew, setIsGridNew] = useState(true);
     
     const handlePrint = useReactToPrint({
@@ -46,10 +40,6 @@ export default function PDF() {
             }});
         } else if (grid.gridType === "5x2") {
             navigate("/selection5x2", { state: {
-                selectedNames: selectedNames,
-                gridType: gridType,
-                numPages: numPages,
-                gridId: gridId,
                 grid: grid,
             }});
         } else {
@@ -95,9 +85,8 @@ export default function PDF() {
                     <React.Fragment>
                         <Grid5x2 
                             ref={componentRef} 
-                            numPages={numPages}
-                            selectedNames={selectedNames}
                             sortedContestants={sortedContestants}
+                            grid={grid}
                         />
                     </React.Fragment>
                     :

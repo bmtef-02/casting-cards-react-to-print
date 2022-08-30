@@ -31,14 +31,22 @@ export default function Selection5x2() {
     const navigate = useNavigate();
     const [sortedContestants, setSortedContestants] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedNames, setSelectedNames] = useState(
-        location.state.selectedNames ? location.state.selectedNames : Array.from(Array(10).fill(""))
-    );
-    const [numPages, setNumPages] = useState(
-        location.state.numPages ? location.state.numPages : [""]
-    );
+    const [grid, setGrid] = useState(
+        location.state.grid ? location.state.grid :
+        {
+            _id: "",
+            description: "",
+            gridType: location.state.gridType,
+            numPages: [""],
+            pitch: "",
+            season: "",
+            selectedNames: Array.from(Array(10).fill("")),
+            showName: ""
+        }
+    )
+    
     const [filter, setFilter] = useState("name-a-z");
-    const gridType = location.state.gridType;
+    const [changedGrid, setChangedGrid] = useState(false);
     
     let start = 0;
     let end = 5;
@@ -147,31 +155,38 @@ export default function Selection5x2() {
 
     const handleSubmit = () => {
         navigate("/print", { state: {
-            selectedNames: selectedNames,
             sortedContestants: sortedContestants,
-            gridType: gridType,
-            numPages: numPages
+            changedGrid: changedGrid,
+            grid: grid,
         }})
     }
 
     const addMinusPage = (e) => {
-        const newNumPages = [...numPages];
+        const newNumPages = [...grid.numPages];
 
         if (e.target.id === "add") {
             newNumPages.push("");
-            const newSelectedNames = selectedNames.concat(Array.from(Array(10).fill("")))
-            setNumPages(newNumPages);
-            setSelectedNames(newSelectedNames);
+            const newSelectedNames = grid.selectedNames.concat(Array.from(Array(10).fill("")))
+            setGrid({
+                ...grid,
+                numPages: newNumPages,
+                selectedNames: newSelectedNames
+            });
+            setChangedGrid(true);
         } else if (e.target.id === "minus") {
             newNumPages.pop();
-            const newSelectedNames = selectedNames;
-            newSelectedNames.splice(selectedNames.length - 10, 10);
-            setNumPages(newNumPages);
-            setSelectedNames(newSelectedNames);
+            const newSelectedNames = grid.selectedNames;
+            newSelectedNames.splice(grid.selectedNames.length - 10, 10);
+            setGrid({
+                ...grid,
+                numPages: newNumPages,
+                selectedNames: newSelectedNames
+            });
+            setChangedGrid(true);
         } else console.log("invalid button");
     }
 
-    if (gridType === "5x2") {
+    if (grid.gridType === "5x2") {
         return (
             <React.Fragment>
                 <div className="container pt-2">
@@ -203,28 +218,40 @@ export default function Selection5x2() {
                     </div>
                 </div>
                 <div className="position-relative">
-                    {numPages.map((obj, i) => {
+                    {grid.numPages.map((obj, i) => {
                         return (
                             <div style={styles.page} key={`page ${i + 1}`}>
                                 <div className="container-fluid">
                                     <div className="row" style={styles.row}>
-                                        {selectedNames.slice(start, end).map(() => {
+                                        {grid.selectedNames.slice(start, end).map(() => {
                                             start += 1;
                                             end += 1;
                                             return (
                                                 <div className="col" key={`card ${start - 1}`}>
-                                                    <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                    <SelectCard5x2 
+                                                        searchList={searchList} 
+                                                        cardNum={start - 1} 
+                                                        setGrid={setGrid}
+                                                        grid={grid}
+                                                        setChangedGrid={setChangedGrid}
+                                                    />
                                                 </div>
                                             );
                                         })}
                                     </div>
                                     <div className="row" style={styles.row}>
-                                        {selectedNames.slice(start, end).map(() => {
+                                        {grid.selectedNames.slice(start, end).map(() => {
                                             start += 1;
                                             end += 1;
                                             return (
                                                 <div className="col" key={`card ${start - 1}`}>
-                                                    <SelectCard5x2 searchList={searchList} cardNum={start - 1} selectedNames={selectedNames} setSelectedNames={setSelectedNames} />
+                                                    <SelectCard5x2 
+                                                        searchList={searchList} 
+                                                        cardNum={start - 1} 
+                                                        setGrid={setGrid}
+                                                        grid={grid}
+                                                        setChangedGrid={setChangedGrid}
+                                                    />
                                                 </div>
                                             );
                                         })}
@@ -237,7 +264,7 @@ export default function Selection5x2() {
                         <div>
                             <i className="bi bi-plus-circle-fill" id="add" style={styles.addPageBtn} onClick={addMinusPage} />
                         </div>
-                        {numPages.length > 1 ?
+                        {grid.numPages.length > 1 ?
                             <div>
                                 <i className="bi bi-dash-circle-fill" id="minus" style={styles.addPageBtn} onClick={addMinusPage} />
                             </div>

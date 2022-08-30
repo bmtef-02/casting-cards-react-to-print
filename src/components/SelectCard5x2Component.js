@@ -14,10 +14,10 @@ const styles = {
     }
 };
 
-export default function SelectCard5x2({ searchList, cardNum, selectedNames, setSelectedNames }) {
+export default function SelectCard5x2({ searchList, cardNum, setChangedGrid, setGrid, grid }) {
 
     const handleFieldChange = (selectedName) => {
-        const newArray = [...selectedNames];
+        const newArray = [...grid.selectedNames];
 
         if (selectedName === null) {
             newArray[cardNum] = "";
@@ -25,15 +25,19 @@ export default function SelectCard5x2({ searchList, cardNum, selectedNames, setS
             newArray[cardNum] = selectedName.value;
         }
 
-        setSelectedNames(newArray);
+        setGrid({
+            ...grid,
+            selectedNames: newArray
+        })
+        setChangedGrid(true)
     };
 
     return (
         <div className="card rounded-0" style={styles.card}>
             <Select
                 defaultValue={
-                    selectedNames[cardNum] ?
-                    {value: selectedNames[cardNum], label: selectedNames[cardNum]}
+                    grid.selectedNames[cardNum] ?
+                    {value: grid.selectedNames[cardNum], label: grid.selectedNames[cardNum]}
                     : null
                 }
                 options={searchList}
@@ -41,7 +45,7 @@ export default function SelectCard5x2({ searchList, cardNum, selectedNames, setS
                 isClearable={true}
             />
             <div>{`Card #${cardNum + 1}`}</div>
-            <div>You chose: {(selectedNames[cardNum] === "") ? `empty` :`${selectedNames[cardNum]}`}</div>
+            <div>You chose: {(grid.selectedNames[cardNum] === "") ? `empty` :`${grid.selectedNames[cardNum]}`}</div>
         </div>
     );
 };
