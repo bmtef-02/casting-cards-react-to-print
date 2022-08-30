@@ -23,7 +23,8 @@ export default function PDF() {
     const [openModal, setOpenModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [validated, setValidated] = useState(false);
-
+    const [newGrid, setNewGrid] = useState({});
+    const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -51,6 +52,8 @@ export default function PDF() {
             navigate("/");
         }
     };
+
+    console.log(location.state);
 
     return (
         <React.Fragment>
@@ -89,8 +92,23 @@ export default function PDF() {
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
             }
-            <SaveModal openModal={openModal} setOpenModal={setOpenModal} setConfirmModal={setConfirmModal} validated={validated} setValidated={setValidated} />
-            <ConfirmModal confirmModal={confirmModal} setConfirmModal={setConfirmModal} setValidated={setValidated} />
+            <SaveModal 
+                openModal={openModal} 
+                setOpenModal={setOpenModal} 
+                setConfirmModal={setConfirmModal} 
+                validated={validated} 
+                setValidated={setValidated}
+                setNewGrid={setNewGrid}
+                changedGrid={changedGrid}
+                setChangedGrid={setChangedGrid}
+            />
+            <ConfirmModal 
+                confirmModal={confirmModal} 
+                setConfirmModal={setConfirmModal} 
+                setValidated={setValidated}
+                newGrid={newGrid}
+                hangedGrid={changedGrid}
+            />
         </React.Fragment>
     );
 };

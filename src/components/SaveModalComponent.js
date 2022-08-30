@@ -5,7 +5,16 @@ import Form from 'react-bootstrap/Form';
 
 export default function SaveModal(props) {
 
-    const { openModal, setOpenModal, setConfirmModal, validated, setValidated } = props;
+    const { 
+        openModal, 
+        setOpenModal, 
+        setConfirmModal, 
+        validated, 
+        setValidated, 
+        setNewGrid,
+        changedGrid,
+        setChangedGrid
+    } = props;
     const location = useLocation();
     const [reqBody, setReqBody] = useState({
         showName: location.state.grid ? location.state.grid.showName : "",
@@ -79,7 +88,7 @@ export default function SaveModal(props) {
             if (location.state.grid) {
                 putGrid(putUrl, reqBody)
                 .then(response => {
-                    console.log(response);
+                    console.log(response, "- updated");
                     setOpenModal(false);
                     setConfirmModal(true);
                 })
@@ -90,8 +99,10 @@ export default function SaveModal(props) {
             } else {
                 postGrid(postUrl, reqBody)
                 .then(response => {
-                    console.log(response)
+                    console.log(response, "- saved");
+                    setNewGrid(response);
                     setOpenModal(false);
+                    setConfirmModal(true);
                 })
                 .catch(err => {
                     console.log("cannot post grid");
@@ -102,6 +113,7 @@ export default function SaveModal(props) {
         }
 
         setValidated(true);
+        setChangedGrid(false);
     };
 
     return (
@@ -167,7 +179,7 @@ export default function SaveModal(props) {
                </Modal.Body> 
                <Modal.Footer>
                     <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
-                    <button className="btn btn-primary" type="submit" disabled={!location.state.changedGrid && !changedForm}>
+                    <button className="btn btn-primary" type="submit" disabled={!changedGrid && !changedForm}>
                         {location.state.grid ? "Update Grid" : "Save Grid"}
                     </button>
                 </Modal.Footer>
