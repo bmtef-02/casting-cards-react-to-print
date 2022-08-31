@@ -197,7 +197,7 @@ export default function Selection5x2() {
                             </Link>
                         </div>
                         <div className="col-auto">
-                            <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
+                            <button className="btn btn-success" onClick={handleSubmit}>Preview PDF</button>
                         </div>
                         <div className="col">
                             <div className="row" style={{alignItems: "center", justifyContent: "flex-end"}}>

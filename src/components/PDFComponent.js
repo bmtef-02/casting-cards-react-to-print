@@ -60,7 +60,7 @@ export default function PDF() {
                         <button className="btn btn-success" onClick={handlePrint}>Print</button>
                     </div>
                     <div className="col-auto">
-                        <button className="btn btn-danger" onClick={handleEdit}>Edit</button>
+                        <button className="btn btn-danger" onClick={handleEdit}>Reselect</button>
                     </div>
                     <div className="col-auto">
                         {grid._id ?
