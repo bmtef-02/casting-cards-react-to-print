@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import NavbarComponent from "./NavBarComponent";
 
 export default function SavedGrids() {
 
@@ -40,6 +41,7 @@ export default function SavedGrids() {
 
     return (
         <div>
+            <NavbarComponent />
             <h1>Saved Grids</h1>
             <div className="container">
                 <div className="row">
