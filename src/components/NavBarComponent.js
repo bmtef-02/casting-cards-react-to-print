@@ -22,12 +22,9 @@ export default function NavbarComponent(props) {
                     <Navbar.Toggle />
                     <Navbar.Collapse>
                         <Nav className="ms-auto" style={{ fontSize: "20px"}}>
-                            {/* <Nav.Link href="/" className="ms-auto px-4" eventKey="1">Home</Nav.Link>
-                            <Nav.Link className="ms-auto px-4" id="nav-create-grid" eventKey="2" onClick={handleClick}>Create Grid</Nav.Link>
-                            <Nav.Link href="/savedGrids" className="ms-auto px-4" eventKey="3">Saved Grids</Nav.Link> */}
-                            <NavLink to="/" className="nav-link ms-auto px-4" eventKey="1">Home</NavLink>
-                            <NavLink to="#create-grid" className="nav-link ms-auto px-4" id="nav-create-grid" eventKey="2">Create Grid</NavLink>
-                            <NavLink to="/savedGrids" className="nav-link ms-auto px-4" eventKey="3">Saved Grids</NavLink>
+                            <Nav.Link as={NavLink} to="/" className="nav-link ms-auto px-4" eventKey="0">Home</Nav.Link>
+                            <Nav.Link as={NavLink} to="/#create-grid" className="nav-link ms-auto px-4" eventKey="1">Create Grid</Nav.Link>
+                            <Nav.Link as={NavLink} to="/savedGrids" className="nav-link ms-auto px-4" eventKey="2">Saved Grids</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
