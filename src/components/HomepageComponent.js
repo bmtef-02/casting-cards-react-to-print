@@ -27,39 +27,9 @@ const styles = {
 
 export default function Home() {
 
-    const navigate = useNavigate();
-
-    // const handleClick = (event) => {
-    //     event.preventDefault();
-    //     if (event.target.name === "4x2") {
-    //         let path = `/selection4x2`;
-    //         navigate(path, { state: {
-    //             gridType: event.target.name
-    //         } });
-    //     } else if (event.target.name === "5x2") {
-    //         let path = `/selection5x2`;
-    //         navigate(path, { state: {
-    //             gridType: event.target.name
-    //         }});
-    //     } else if (event.target.name === "savedGrids") {
-    //         navigate(`/savedGrids`);
-    //     } else {
-    //         console.log("event.target.name is not 4x2 nor 5x2");
-    //     }
-    // }
-
-    const handleClick = (event) => {
-        if (event.target.id === "nav-create-grid") {
-            const element = document.getElementById("create-grid");
-            element.scrollIntoView();
-        } else {
-            console.log('nothing happens')
-        }
-    };
-
     return (
         <React.Fragment>
-            <NavbarComponent handleClick={handleClick} />
+            <NavbarComponent />
             <div className="text-center p-3 p-md-5">
                 <div className="col-md-5 mx-auto my-5">
                     <h1>Lorem Ipsum</h1>

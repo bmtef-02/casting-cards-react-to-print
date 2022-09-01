@@ -1,12 +1,12 @@
-import React from "react";
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink, Link } from 'react-router-dom';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 
-export default function NavbarComponent(props) {
+export default function NavbarComponent() {
 
-    const { handleClick } = props;
+    const createGridActive = window.location.hash === "#create-grid" ? true : false; 
 
     return (
         <React.Fragment>
@@ -22,9 +22,42 @@ export default function NavbarComponent(props) {
                     <Navbar.Toggle />
                     <Navbar.Collapse>
                         <Nav className="ms-auto" style={{ fontSize: "20px"}}>
-                            <Nav.Link as={NavLink} to="/" className="nav-link ms-auto px-4" eventKey="0">Home</Nav.Link>
-                            <Nav.Link as={NavLink} to="/#create-grid" className="nav-link ms-auto px-4" eventKey="1">Create Grid</Nav.Link>
-                            <Nav.Link as={NavLink} to="/savedGrids" className="nav-link ms-auto px-4" eventKey="2">Saved Grids</Nav.Link>
+                            <Nav.Link 
+                                as={NavLink} 
+                                to="/" 
+                                className="ms-auto px-4" 
+                                eventKey="0" 
+                                style={({ isActive }) => ({
+                                    fontWeight: isActive && !createGridActive ? "bold" : "lighter",
+                                    color: "white"
+                                })}
+                            >
+                                Home
+                            </Nav.Link>
+                            <Nav.Link 
+                                as={NavLink} 
+                                to="/#create-grid" 
+                                className="ms-auto px-4" 
+                                eventKey="1"
+                                style={({ isActive }) => ({
+                                    fontWeight: createGridActive ? "bold" : "lighter",
+                                    color: "white"
+                                })}
+                            >
+                                Create Grid
+                            </Nav.Link>
+                            <Nav.Link 
+                                as={NavLink} 
+                                to="/savedGrids" 
+                                className="ms-auto px-4" 
+                                eventKey="2"
+                                style={({ isActive }) => ({
+                                    fontWeight: isActive ? "bold" : "lighter",
+                                    color: "white"
+                                })}
+                            >
+                                Saved Grids
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
