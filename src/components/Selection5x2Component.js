@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import SelectCard5x2 from "./SelectCard5x2Component";
+import Header from "./HeaderComponent";
 
 const styles = {
     page: {
@@ -189,6 +190,7 @@ export default function Selection5x2() {
     if (grid.gridType === "5x2") {
         return (
             <React.Fragment>
+                <Header />
                 <div className="container pt-2">
                     <div className="row">
                         <div className="col-auto">
