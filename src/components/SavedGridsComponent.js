@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 
 export default function SavedGrids() {
 
@@ -44,7 +45,7 @@ export default function SavedGrids() {
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
             </div>
-            <div className="container-fluid text-center px-4 mt-2 bg-light">
+            <div className="container-fluid text-center p-4 mt-2 bg-light">
                 <div className="row g-4 justify-content-sm-center justify-content-lg-start">
                     {allGrids.map(grid => {
                         return (
@@ -67,6 +68,7 @@ export default function SavedGrids() {
                     })}
                 </div>
             </div>
+            <Footer />
         </React.Fragment>
     );
 }

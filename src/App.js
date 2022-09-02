@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import PDF from "./components/PDFComponent";
 import Home from "./components/HomepageComponent";
 import Selection4x2 from "./components/Selection4x2Component";
