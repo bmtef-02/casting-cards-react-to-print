@@ -1,35 +1,27 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarComponent from "./NavBarComponent";
-import Grid4x2Example from "../img/Grid4x2Example.png";
-import Grid5x2Example from "../img/Grid5x2Example.png";
-
-const styles = {
-    selectTitleRow: {
-        textAlign: "center"
-    },
-    gridSelectRow: {
-        textAlign: "center",
-        marginTop: "25px",
-    },
-    gridSelectCol: {
-        border: "black solid 1px",
-        borderRadius: "50px",
-        background: "white",
-        margin: "10px 25px",
-        padding: "10px 0 20px 0",
-    },
-    img: {
-        maxWidth: "80%",
-        cursor: "pointer",
-    }
-}
+import Header from "./HeaderComponent";
 
 export default function Home() {
 
+    const navigate = useNavigate();
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        if (event.target.name === "4x2") {
+            navigate("/selection4x2", { state: {
+                gridType: event.target.name
+            }});
+        } else if (event.target.name === "5x2") {
+            navigate("/selection5x2", { state: {
+                gridType: event.target.name
+            }});
+        } else console.log("grid type unknown")
+    };
+
     return (
         <React.Fragment>
-            <NavbarComponent />
+            <Header />
             <div className="text-center p-3 p-md-5">
                 <div className="col-md-5 mx-auto my-5">
                     <h1>Lorem Ipsum</h1>
@@ -78,7 +70,7 @@ export default function Home() {
                             <div className="card-body">
                                 <h2 className="card-title">Lorem Ipsum</h2>
                                 <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button className="btn btn-lg btn-dark" type="button" style={{ width: "80%" }}>Get Started</button>
+                                <button className="btn btn-lg btn-dark" type="button" name="4x2" style={{ width: "80%" }} onClick={handleClick}>Get Started</button>
                             </div>
                         </div>
                     </div>
@@ -88,24 +80,11 @@ export default function Home() {
                             <div className="card-body">
                                 <h2 className="card-title">Lorem Ipsum</h2>
                                 <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button className="btn btn-lg btn-dark" type="button" style={{ width: "80%" }}>Get Started</button>
+                                <button className="btn btn-lg btn-dark" type="button" name="5x2" style={{ width: "80%" }} onClick={handleClick}>Get Started</button>
                             </div>
                         </div>
                     </div >
                 </div>
-                {/* <div className="row" style={styles.gridSelectRow}>
-                    <div className="col-md" style={styles.gridSelectCol}>
-                        <h3>4x2 Grid</h3>
-                        <img src={Grid4x2Example} alt="Grid4x2Example" style={styles.img} name="4x2" onClick={handleClick} />
-                    </div>
-                    <div className="col-md" style={styles.gridSelectCol}>
-                        <h3>5x2 Grid</h3>
-                        <img src={Grid5x2Example} alt="Grid5x2Example" style={styles.img} name="5x2" onClick={handleClick} />
-                    </div>
-                </div>
-                <div className="row">
-                    <button className="btn btn-primary" name="savedGrids" onClick={handleClick}>View Saved Grids</button>
-                </div> */}
             </div>
         </React.Fragment>
     )

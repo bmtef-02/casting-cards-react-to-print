@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 
-export default function NavbarComponent() {
+export default function Header() {
 
     const createGridActive = window.location.hash === "#create-grid" ? true : false; 
 
