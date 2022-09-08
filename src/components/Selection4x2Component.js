@@ -10,7 +10,7 @@ const styles = {
         height: '21cm',
         backgroundColor: 'white',
         boxShadow: '0 0 0.5cm',
-        marginTop: '0.5cm',
+        marginTop: '0.2cm',
         marginBottom: '0.5cm',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -194,19 +194,19 @@ export default function Selection4x2() {
                 <div className="container pt-2">
                     <div className="row">
                         <div className="col-auto">
-                            <Link to="/">
-                                <button className="btn btn-dark" href="/">Home</button>
-                            </Link>
+                            <button className="btn btn-success" onClick={handleSubmit}>Preview PDF</button>
                         </div>
                         <div className="col-auto">
-                            <button className="btn btn-success" onClick={handleSubmit}>Preview PDF</button>
+                            <Link to="/#create-grid">
+                                <button className="btn btn-danger" href="/">Cancel</button>
+                            </Link>
                         </div>
                         <div className="col">
                             <div className="row" style={{alignItems: "center", justifyContent: "flex-end" }}>
                                 <div className="col-auto">
                                     <h5 className="m-0">Filter Options:</h5>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-4">
                                     <select className='form-select' onChange={(e) => setFilter(e.target.value)}>
                                         <option value='name-a-z' defaultValue>Last Name (A-Z)</option>
                                         <option value='name-z-a' defaultValue>Last Name (Z-A)</option>
@@ -216,6 +216,20 @@ export default function Selection4x2() {
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col d-flex justify-content-center align-items-center">
+                            <h3 className="m-0">
+                                {grid.showName ? `${grid.showName}` : `Untitled`}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col d-flex justify-content-center align-items-center">
+                            <h4 className="m-0">
+                                {grid.showName ? `Season ${grid.season} - Round ${grid.pitch}` : null}
+                            </h4>
                         </div>
                     </div>
                 </div>

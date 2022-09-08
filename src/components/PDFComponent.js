@@ -5,6 +5,7 @@ import Grid4x2 from "./Grid4x2Component";
 import Grid5x2 from "./Grid5x2Component";
 import SaveModal from "./SaveModalComponent";
 import ConfirmModal from "./ConfirmModalComponent";
+import Header from "./HeaderComponent";
 
 export default function PDF() {
 
@@ -49,13 +50,9 @@ export default function PDF() {
 
     return (
         <React.Fragment>
+            <Header />
             <div className="container pt-2 pb-4">
                 <div className="row">
-                    <div className="col-auto">
-                        <Link to="/">
-                            <button className="btn btn-dark" href="/">Home</button>
-                        </Link>
-                    </div>
                     <div className="col-auto">
                         <button className="btn btn-success" onClick={handlePrint}>Print</button>
                     </div>
