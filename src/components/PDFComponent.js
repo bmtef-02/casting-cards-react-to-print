@@ -21,13 +21,14 @@ export default function PDF() {
     const componentRef = useRef();
     const location = useLocation();
     const navigate = useNavigate();
-    const [grid, setGrid] = useState(location.state.grid);
-    const [openModal, setOpenModal] = useState(false);
-    const [confirmModal, setConfirmModal] = useState(false);
-    const [validated, setValidated] = useState(false);
-    const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
+    const grid = location.state.grid;
+    // const [openModal, setOpenModal] = useState(false);
+    // const [confirmModal, setConfirmModal] = useState(false);
+    // const [validated, setValidated] = useState(false);
+    // const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
     const sortedContestants = location.state.sortedContestants;
-    const [isGridNew, setIsGridNew] = useState(true);
+    // const [isGridNew, setIsGridNew] = useState(true);
+    const changedGrid = location.state.changedGrid;
     
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -38,10 +39,12 @@ export default function PDF() {
         if (grid.gridType === "4x2") {
             navigate("/selection4x2", { state: {
                 grid: grid,
+                changedGrid: changedGrid,
             }});
         } else if (grid.gridType === "5x2") {
             navigate("/selection5x2", { state: {
                 grid: grid,
+                changedGrid: changedGrid,
             }});
         } else {
             navigate("/");
@@ -59,13 +62,13 @@ export default function PDF() {
                     <div className="col-auto">
                         <button className="btn btn-danger" onClick={handleEdit}>Reselect</button>
                     </div>
-                    <div className="col-auto">
+                    {/* <div className="col-auto">
                         {grid._id ?
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
                             :
                             <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
                         }
-                    </div>
+                    </div> */}
                     {JSON.stringify(grid)}
                 </div>
             </div>
@@ -89,7 +92,7 @@ export default function PDF() {
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
             }
-            <SaveModal 
+            {/* <SaveModal 
                 openModal={openModal} 
                 setOpenModal={setOpenModal} 
                 setConfirmModal={setConfirmModal} 
@@ -107,7 +110,7 @@ export default function PDF() {
                 setValidated={setValidated}
                 grid={grid}
                 isGridNew={isGridNew}
-            />
+            /> */}
         </React.Fragment>
     );
 };

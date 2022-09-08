@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
@@ -16,18 +16,23 @@ export default function SaveModal(props) {
         setGrid,
         setIsGridNew
     } = props;
-    const [reqBody, setReqBody] = useState({
-        showName: grid ? grid.showName : "",
-        season: grid ? JSON.stringify(grid.season) : "",
-        pitch: grid ? JSON.stringify(grid.pitch) : "",
-        description: grid ? grid.description : "",
-        selectedNames: grid.selectedNames,
-        numPages: grid.numPages,
-        gridType: grid.gridType
-    });
+    const [reqBody, setReqBody] = useState({});
+    console.log(reqBody);
     const [changedForm, setChangedForm] = useState(false);
     const postUrl = `http://localhost:3000/grids`;
     const putUrl = `http://localhost:3000/grids/${grid._id}`;
+
+    useEffect(() => {
+        setReqBody({
+            showName: grid._id ? grid.showName : "",
+            season: grid._id ? JSON.stringify(grid.season) : "",
+            pitch: grid._id ? JSON.stringify(grid.pitch) : "",
+            description: grid._id ? grid.description : "",
+            selectedNames: grid.selectedNames,
+            numPages: grid.numPages,
+            gridType: grid.gridType
+        })
+    }, [grid])
 
     const handleFieldChange = (event) => {
         if (event.target.name === "showName") {

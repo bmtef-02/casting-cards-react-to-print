@@ -3,6 +3,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import SelectCard4x2 from "./SelectCard4x2Component";
 import Header from "./HeaderComponent";
+import SaveModal from "./SaveModalComponent";
+import ConfirmModal from "./ConfirmModalComponent";
 
 const styles = {
     page: {
@@ -45,9 +47,15 @@ export default function Selection4x2() {
             showName: ""
         }
     );
-    
+
     const [filter, setFilter] = useState("name-a-z");
-    const [changedGrid, setChangedGrid] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
+    const [validated, setValidated] = useState(false);
+    const [changedGrid, setChangedGrid] = useState(
+        location.state.changedGrid ? location.state.changedGrid : false
+    );
+    const [isGridNew, setIsGridNew] = useState(true);
 
     let start = 0;
     let end = 4
@@ -201,6 +209,13 @@ export default function Selection4x2() {
                                 <button className="btn btn-danger" href="/">Cancel</button>
                             </Link>
                         </div>
+                        <div className="col-auto">
+                            {grid._id ?
+                                <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
+                                :
+                                <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
+                            }
+                        </div>
                         <div className="col">
                             <div className="row" style={{alignItems: "center", justifyContent: "flex-end" }}>
                                 <div className="col-auto">
@@ -290,6 +305,25 @@ export default function Selection4x2() {
                     </div>
                     
                 </div>
+                <SaveModal 
+                    openModal={openModal}
+                    setOpenModal={setOpenModal} 
+                    setConfirmModal={setConfirmModal} 
+                    validated={validated} 
+                    setValidated={setValidated}
+                    changedGrid={changedGrid}
+                    setChangedGrid={setChangedGrid}
+                    grid={grid}
+                    setGrid={setGrid}
+                    setIsGridNew={setIsGridNew}
+                />
+                <ConfirmModal 
+                    confirmModal={confirmModal} 
+                    setConfirmModal={setConfirmModal} 
+                    setValidated={setValidated}
+                    grid={grid}
+                    isGridNew={isGridNew}
+                />
             </React.Fragment>
         );
     } else {
