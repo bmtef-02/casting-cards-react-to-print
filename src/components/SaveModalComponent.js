@@ -188,7 +188,7 @@ export default function SaveModal(props) {
                <Modal.Footer>
                     <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
                     <button className="btn btn-primary" type="submit" disabled={!changedGrid && !changedForm}>
-                        {grid._id ? "Update Grid" : "Save Grid"}
+                        {grid._id ? "Save Changes" : "Save Grid"}
                     </button>
                 </Modal.Footer>
             </Form>

@@ -56,6 +56,7 @@ export default function Selection5x2() {
         location.state.changedGrid ? location.state.changedGrid : false
     );
     const [isGridNew, setIsGridNew] = useState(true);
+    const cancelLink = grid._id ? "/savedGrids" : "/#create-grid"
     
     let start = 0;
     let end = 5;
@@ -205,15 +206,28 @@ export default function Selection5x2() {
                             <button className="btn btn-success" onClick={handleSubmit}>Preview PDF</button>
                         </div>
                         <div className="col-auto">
-                            <Link to="/#create-grid">
+                            <Link to={cancelLink}>
                                 <button className="btn btn-danger" href="/">Cancel</button>
                             </Link>
                         </div>
                         <div className="col-auto">
                             {grid._id ?
-                                <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
+                                <button className="btn btn-primary position-relative" onClick={() => setOpenModal(true)}>
+                                    Update / Edit Title
+                                    {changedGrid ? 
+                                        <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                            <span className="visually-hidden">Save Alert</span>
+                                        </span>
+                                        : null
+                                    }
+                                </button>
                                 :
-                                <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
+                                <button className="btn btn-primary position-relative" onClick={() => setOpenModal(true)}>
+                                    Save
+                                    <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                        <span className="visually-hidden">Save Alert</span>
+                                    </span>
+                                </button>
                             }
                         </div>
                         <div className="col">

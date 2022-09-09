@@ -22,12 +22,7 @@ export default function PDF() {
     const location = useLocation();
     const navigate = useNavigate();
     const grid = location.state.grid;
-    // const [openModal, setOpenModal] = useState(false);
-    // const [confirmModal, setConfirmModal] = useState(false);
-    // const [validated, setValidated] = useState(false);
-    // const [changedGrid, setChangedGrid] = useState(location.state.changedGrid);
     const sortedContestants = location.state.sortedContestants;
-    // const [isGridNew, setIsGridNew] = useState(true);
     const changedGrid = location.state.changedGrid;
     
     const handlePrint = useReactToPrint({
@@ -60,16 +55,8 @@ export default function PDF() {
                         <button className="btn btn-success" onClick={handlePrint}>Print</button>
                     </div>
                     <div className="col-auto">
-                        <button className="btn btn-danger" onClick={handleEdit}>Reselect</button>
+                        <button className="btn btn-warning" onClick={handleEdit}>Back To Selection</button>
                     </div>
-                    {/* <div className="col-auto">
-                        {grid._id ?
-                            <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Update</button>
-                            :
-                            <button className="btn btn-primary" onClick={() => setOpenModal(true)}>Save</button>
-                        }
-                    </div> */}
-                    {JSON.stringify(grid)}
                 </div>
             </div>
             { grid.gridType === "4x2" ? 
@@ -92,25 +79,6 @@ export default function PDF() {
                     :
                     <h1>Grid type not found, go back to Homepage</h1>
             }
-            {/* <SaveModal 
-                openModal={openModal} 
-                setOpenModal={setOpenModal} 
-                setConfirmModal={setConfirmModal} 
-                validated={validated} 
-                setValidated={setValidated}
-                changedGrid={changedGrid}
-                setChangedGrid={setChangedGrid}
-                grid={grid}
-                setGrid={setGrid}
-                setIsGridNew={setIsGridNew}
-            />
-            <ConfirmModal 
-                confirmModal={confirmModal} 
-                setConfirmModal={setConfirmModal} 
-                setValidated={setValidated}
-                grid={grid}
-                isGridNew={isGridNew}
-            /> */}
         </React.Fragment>
     );
 };
