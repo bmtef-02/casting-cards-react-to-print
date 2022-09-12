@@ -5,7 +5,6 @@ import Collapse from "react-bootstrap/Collapse";
 import Grid4x2 from "./Grid4x2Component";
 import Grid5x2 from "./Grid5x2Component";
 import Header from "./HeaderComponent";
-import { Col } from "react-bootstrap";
 
 export default function PDF() {
 
@@ -66,6 +65,7 @@ export default function PDF() {
                         <Collapse in={openHint}>
                             <div className="mt-3">
                                 <h4>For best printing results, set the following:</h4>
+                                <p>Most Compatible Browser: <strong>Firefox</strong></p>
                                 <p>Destination: <strong>Save to PDF</strong></p>
                                 <p>Paper Size/Type: <strong>A4</strong></p>
                                 <p>Scale: <strong>Fit to page width</strong></p>
