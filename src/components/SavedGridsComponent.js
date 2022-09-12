@@ -42,7 +42,7 @@ export default function SavedGrids() {
             <div className="text-center p-3 p-md-5">
                 <div className="col-md-5 mx-auto my-5">
                     <h1>Saved Grids</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>View, print, or edit any of your grids that you previoiusly saved.</p>
                 </div>
             </div>
             <div className="container-fluid text-center p-4 mt-2 bg-light">
