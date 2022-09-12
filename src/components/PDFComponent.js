@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Collapse from "react-bootstrap/Collapse";
 import Grid4x2 from "./Grid4x2Component";
 import Grid5x2 from "./Grid5x2Component";
-import SaveModal from "./SaveModalComponent";
-import ConfirmModal from "./ConfirmModalComponent";
 import Header from "./HeaderComponent";
+import { Col } from "react-bootstrap";
 
 export default function PDF() {
 
@@ -24,6 +24,7 @@ export default function PDF() {
     const grid = location.state.grid;
     const sortedContestants = location.state.sortedContestants;
     const changedGrid = location.state.changedGrid;
+    const [openHint, setOpenHint] = useState(false);
     
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -51,11 +52,27 @@ export default function PDF() {
             <Header />
             <div className="container pt-2 pb-4">
                 <div className="row">
-                    <div className="col-auto">
-                        <button className="btn btn-success" onClick={handlePrint}>Print</button>
+                    <div className="col-md-auto mb-md-0 mb-3">
+                        <button className="btn btn-success" onClick={handlePrint}>Print / Save PDF</button>
                     </div>
-                    <div className="col-auto">
+                    <div className="col-md-auto  mb-md-0 mb-3">
                         <button className="btn btn-warning" onClick={handleEdit}>Back To Selection</button>
+                    </div>
+                    <div className="col-md-auto">
+                        <button className="btn btn-info" onClick={() => setOpenHint(!openHint)}>
+                            Printing Tips
+                            { openHint ? <i className="bi bi-chevron-up ms-2"></i> : <i className="bi bi-chevron-down ms-2"></i>}
+                        </button>
+                        <Collapse in={openHint}>
+                            <div className="mt-3">
+                                <h4>For best printing results, set the following:</h4>
+                                <p>Destination: <strong>Save to PDF</strong></p>
+                                <p>Paper Size/Type: <strong>A4</strong></p>
+                                <p>Scale: <strong>Fit to page width</strong></p>
+                                <p>Margins: <strong>None</strong></p>
+                                <p>Option to Print Headers and Footers: <strong>OFF / Unchecked</strong></p>
+                            </div>
+                        </Collapse>
                     </div>
                 </div>
             </div>

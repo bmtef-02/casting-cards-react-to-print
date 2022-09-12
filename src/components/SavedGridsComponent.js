@@ -51,19 +51,14 @@ export default function SavedGrids() {
                         return (
                             <div className="col-lg-4 col-md-5" key={grid._id}>
                                 <div className="card h-100 border-dark">
-                                    <h4 className="card-header bg-dark text-white">{grid.showName}</h4>
+                                    <h2 className="card-header bg-dark text-white">{grid.showName}</h2>
                                     <div className="card-body d-flex flex-column align-items-center">
-                                        <h2 className="card-title">{`Season ${grid.season}, Round ${grid.pitch}`}</h2>
+                                        <h4 className="card-title">{`Season ${grid.season} - Round ${grid.pitch}`}</h4>
                                         <p className="card-text">{grid.description}</p>
                                         <button className="btn btn-lg btn-outline-dark mt-auto" type="button" value={grid._id} style={{ width: "50%" }} onClick={handleClick}>View</button>
                                     </div>
                                 </div>
                             </div>
-                            // <div className="col-12" style={{ border: "1px solid black", margin: "5px", padding: "1px" }} key={grid._id}>
-                            //     <h1>{grid.showName}</h1>
-                            //     <h2>{`Season ${grid.season}, Round ${grid.pitch}`}</h2>
-                            //     <button className="btn btn-primary" value={grid._id} onClick={handleClick}>View Grid</button>
-                            // </div>
                         );
                     })}
                 </div>

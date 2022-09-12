@@ -35,6 +35,8 @@ export default function SaveModal(props) {
     }, [grid])
 
     const handleFieldChange = (event) => {
+        setChangedGrid(true);
+        
         if (event.target.name === "showName") {
             setReqBody({
                 ...reqBody,

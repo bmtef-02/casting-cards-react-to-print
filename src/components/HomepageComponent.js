@@ -26,14 +26,14 @@ const styles = {
         opacity: 0.5,
     },
     selectCard: {
-        position: "relative",
-        width: "80%",
-        top: "5%",
+        maxHeight: "100%",
+        maxWidth: "100%",
+        padding: "20px",
     },
     PDFexample: {
-        position: "relative",
-        width: "80%",
-        top: "10%",
+        maxHeight: "100%",
+        maxWidth: "100%",
+        padding: "20px",
     }
 }
 
@@ -61,41 +61,33 @@ export default function Home() {
                 <div className="col-md-4 mx-auto my-auto">
                     <h1>Casting Cards</h1>
                     <p>organize actors and actresses into beautiful grids that display headshots and personal information to make casting decisions easier.</p>
-                    <img src={Homepage4x2Grid} alt="Homepage4x2Grid" style={styles.imgRight} />
-                    <img src={Homepage4x2Grid} alt="Homepage4x2Grid" style={styles.imgLeft} />
+                    <img src={Homepage4x2Grid} alt="Homepage4x2Grid" className="d-none d-xl-block" style={styles.imgRight} />
+                    <img src={Homepage4x2Grid} alt="Homepage4x2Grid" className="d-none d-xl-block" style={styles.imgLeft} />
                 </div>
             </div>
             <div className="container-fluid text-center p-4">
                 <div className="row g-4">
-                    <div className="col-lg-6">
-                        <div className="mt-3 p-5 pb-0 bg-dark text-white">
-                            <h2>Selecting Cards</h2>
-                            <p>No more wasting time positioning text and images. Just select the name of the person you want and the rest is taken care of.</p>
-                            <div className="bg-light mx-auto mt-5" style={{ width: "80%", height: "300px", borderRadius: "21px 21px 0 0", overflow: "hidden" }}>
-                                <img src={SelectingCardExample} alt="selecting-card-example" style={styles.selectCard} />
-                            </div>
+                    <div className="col-lg-6 mt-3 p-5 pb-0 bg-dark text-white">
+                        <h2>Selecting Cards</h2>
+                        <p style={{height: "50px"}}>asdfasdf No more wasting time positioning text and images. Just select the name of the person you want and the rest is taken care of.</p>
+                        <div className="bg-light mx-auto mt-5" style={{ width: "80%", height: "300px", borderRadius: "21px 21px 0 0", overflow: "hidden" }}>
+                            <img src={SelectingCardExample} alt="selecting-card-example" style={styles.selectCard} />
                         </div>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="mt-3 p-5 pb-0 bg-light">
-                            <h2>Create PDFs</h2>
-                            <p>Easily save your grid as a PDF to email out or print for your next pitch meeting.</p>
-                            <div className="bg-dark mx-auto mt-5" style={{ width: "80%", height: "300px", borderRadius: "21px 21px 0 0", overflow: "hidden" }}>
-                                <img src={Homepage5x2Grid} alt="Homepage5x2Grid" style={styles.PDFexample} />
-                            </div>
+                    <div className="col-lg-6 mt-3 p-5 pb-0 bg-light">
+                        <h2>Create PDFs</h2>
+                        <p style={{height: "50px"}}>Easily save your grid as a PDF to email out or print for your next pitch meeting.</p>
+                        <div className="bg-dark mx-auto mt-5" style={{ width: "80%", height: "300px", borderRadius: "21px 21px 0 0", overflow: "hidden" }}>
+                            <img src={Homepage5x2Grid} alt="Homepage5x2Grid" style={styles.PDFexample} />
                         </div>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="my-3 p-5 bg-light">
-                            <h2>Save Your Grids</h2>
-                            <p>Want to change the people on your grid? No problem! You can save all of your grids and access them to make any edits you need.</p>
-                        </div>
+                    <div className="col-lg-6 my-3 p-5 bg-light">
+                        <h2>Coming Soon!</h2>
+                        <p>As of now, there is only a pre-determined list of people you can choose from to add to your grid. In the future, you will be able to add your own custom contestants.</p>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="my-3 p-5 bg-dark text-white">
-                            <h2>Lorem Ipsum</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
+                    <div className="col-lg-6 my-3 p-5 bg-dark text-white">
+                        <h2>Save Your Grids</h2>
+                        <p>Want to change the people on your grid? No problem! You can save all of your grids and access them to make any edits you need.</p>
                     </div>
                 </div>
                 <div className="text-center p-1 p-md-3" id="create-grid">
