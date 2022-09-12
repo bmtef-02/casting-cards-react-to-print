@@ -64,7 +64,8 @@ export default function Selection4x2() {
     useEffect(() => {
         let sortedArr = [];
         let list = [];
-        axios.get(`http://localhost:3000/contestants`)
+        // axios.get(`http://localhost:3000/contestants`)
+        axios.get('https://dry-cliffs-03397.herokuapp.com/contestants')
         .then(resp => {
             const arr = resp.data;
             if (filter === 'name-a-z' || null) {

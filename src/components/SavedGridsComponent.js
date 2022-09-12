@@ -6,7 +6,8 @@ import Footer from "./FooterComponent";
 
 export default function SavedGrids() {
 
-    const url = `http://localhost:3000/grids`;
+    // const url = `http://localhost:3000/grids`;
+    const url = 'https://dry-cliffs-03397.herokuapp.com/grids'
     const navigate = useNavigate();
     const [allGrids, setAllGrids] = useState([]);
 
