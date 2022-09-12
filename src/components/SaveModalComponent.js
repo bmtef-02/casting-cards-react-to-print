@@ -17,7 +17,6 @@ export default function SaveModal(props) {
         setIsGridNew
     } = props;
     const [reqBody, setReqBody] = useState({});
-    console.log(reqBody);
     const [changedForm, setChangedForm] = useState(false);
     const postUrl = `http://localhost:3000/grids`;
     const putUrl = `http://localhost:3000/grids/${grid._id}`;
