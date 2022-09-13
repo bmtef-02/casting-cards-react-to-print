@@ -18,8 +18,10 @@ export default function SaveModal(props) {
     } = props;
     const [reqBody, setReqBody] = useState({});
     const [changedForm, setChangedForm] = useState(false);
-    const postUrl = `http://localhost:3000/grids`;
-    const putUrl = `http://localhost:3000/grids/${grid._id}`;
+    // const postUrl = `http://localhost:3000/grids`;
+    // const putUrl = `http://localhost:3000/grids/${grid._id}`;
+    const postUrl = `https://dry-cliffs-03397.herokuapp.com/grids`;
+    const putUrl = `https://dry-cliffs-03397.herokuapp.com/grids/${grid._id}`;
 
     useEffect(() => {
         setReqBody({
