@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Spinner from "react-bootstrap/Spinner";
 
 export default function SaveModal(props) {
 
@@ -14,10 +15,12 @@ export default function SaveModal(props) {
         setChangedGrid,
         grid,
         setGrid,
-        setIsGridNew
+        setIsGridNew,
+        setErrorModal,
     } = props;
     const [reqBody, setReqBody] = useState({});
     const [changedForm, setChangedForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     // const postUrl = `http://localhost:3000/grids`;
     // const putUrl = `http://localhost:3000/grids/${grid._id}`;
     const postUrl = `https://dry-cliffs-03397.herokuapp.com/grids`;
@@ -64,6 +67,7 @@ export default function SaveModal(props) {
 
     const handleSave = (event) => {
         event.preventDefault();
+        setIsLoading(true);
 
         async function postGrid(url = "", data = {}) {
             const response = await fetch(url, {
@@ -101,8 +105,12 @@ export default function SaveModal(props) {
                     setOpenModal(false);
                     setConfirmModal(true);
                     setIsGridNew(false);
+                    setIsLoading(false);
                 })
                 .catch(err => {
+                    setOpenModal(false);
+                    setErrorModal(true);
+                    setIsLoading(false);
                     console.log("cannot update grid");
                     console.log(err);
                 })
@@ -114,8 +122,12 @@ export default function SaveModal(props) {
                     setOpenModal(false);
                     setConfirmModal(true);
                     setIsGridNew(true);
+                    setIsLoading(false);
                 })
                 .catch(err => {
+                    setOpenModal(false);
+                    setErrorModal(true);
+                    setIsLoading(false);
                     console.log("cannot post grid");
                     console.log(err);
                 })
@@ -191,7 +203,11 @@ export default function SaveModal(props) {
                <Modal.Footer>
                     <button className="btn btn-secondary" type="button" onClick={() => setOpenModal(false)}>Close</button>
                     <button className="btn btn-primary" type="submit" disabled={!changedGrid && !changedForm}>
-                        {grid._id ? "Save Changes" : "Save Grid"}
+                        { isLoading ?
+                            <Spinner as="span" animation="border" size="sm" />
+                            :
+                            grid._id ? "Save Changes" : "Save Grid"
+                        }
                     </button>
                 </Modal.Footer>
             </Form>

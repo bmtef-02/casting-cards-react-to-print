@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
+import ErrorModal from "./ErrorModalComponents";
 
 export default function SavedGrids() {
 
@@ -10,14 +12,21 @@ export default function SavedGrids() {
     const url = 'https://dry-cliffs-03397.herokuapp.com/grids'
     const navigate = useNavigate();
     const [allGrids, setAllGrids] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorModal, setErrorModal] = useState(false);
 
     useEffect(() => {
         axios.get(url)
         .then(resp => {
+            setIsLoading(false);
             const arr = resp.data;
             setAllGrids(arr);
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            setIsLoading(false);
+            setErrorModal(true);
+            console.error(err);
+        })
     }, [url])
 
     const handleClick = (event) => {
@@ -47,6 +56,7 @@ export default function SavedGrids() {
                 </div>
             </div>
             <div className="container-fluid text-center p-4 mt-2 bg-light">
+                { isLoading ? <Spinner animation="border" variant="primary" className="mb-4" /> : null }
                 <div className="row g-4 justify-content-sm-center justify-content-lg-start">
                     {allGrids.map(grid => {
                         return (
@@ -65,6 +75,10 @@ export default function SavedGrids() {
                 </div>
             </div>
             <Footer />
+            <ErrorModal
+                errorModal={errorModal}
+                setErrorModal={setErrorModal}
+            />
         </React.Fragment>
     );
 }

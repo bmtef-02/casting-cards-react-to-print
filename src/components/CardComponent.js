@@ -28,7 +28,6 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '0',
-        // border: '1px solid black',
         width: '2.40in',    // full width is 2.44in
         height: '0.22in',   // full height is 0.26in
         fontSize: '16px'

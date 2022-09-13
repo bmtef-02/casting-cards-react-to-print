@@ -1,5 +1,6 @@
 import React from "react";
 import Select from 'react-select'
+import Spinner from "react-bootstrap/Spinner";
 
 const styles = {
     card: {
@@ -14,7 +15,16 @@ const styles = {
     }
 };
 
-export default function SelectCard4x2({ searchList, cardNum, setChangedGrid, setGrid, grid }) {
+export default function SelectCard4x2(props) {
+
+    const {
+        searchList,
+        cardNum,
+        setChangedGrid,
+        setGrid,
+        grid,
+        contestantLoading,
+    } = props;
 
     const handleFieldChange = (selectedName) => {
         const newArray = [...grid.selectedNames];
@@ -34,6 +44,13 @@ export default function SelectCard4x2({ searchList, cardNum, setChangedGrid, set
 
     return (
         <div className="card rounded-0" style={styles.card}>
+            { contestantLoading ? 
+                <div className="text-center">
+                    Loading contestants...
+                    <Spinner animation="border" className="mb-2" />
+                </div>
+                : null
+            }
             <Select
                 defaultValue={
                     grid.selectedNames[cardNum] ?
@@ -44,8 +61,8 @@ export default function SelectCard4x2({ searchList, cardNum, setChangedGrid, set
                 onChange={handleFieldChange}
                 isClearable={true}
             />
-            <div>{`Card #${cardNum + 1}`}</div>
-            <div>You chose: {(grid.selectedNames[cardNum] === "") ? `empty` :`${grid.selectedNames[cardNum]}`}</div>
+            <div className="text-center mt-2">{`Card #${cardNum + 1}`}</div>
+            <div className="text-center">You chose: {(grid.selectedNames[cardNum] === "") ? `empty` :`${grid.selectedNames[cardNum]}`}</div>
         </div>
     );
 };

@@ -5,6 +5,7 @@ import SelectCard4x2 from "./SelectCard4x2Component";
 import Header from "./HeaderComponent";
 import SaveModal from "./SaveModalComponent";
 import ConfirmModal from "./ConfirmModalComponent";
+import ErrorModal from "./ErrorModalComponents";
 
 const styles = {
     page: {
@@ -51,6 +52,8 @@ export default function Selection4x2() {
     const [filter, setFilter] = useState("name-a-z");
     const [openModal, setOpenModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
+    const [errorModal, setErrorModal] = useState(false);
+    const [contestantLoading, setContestantLoading] = useState(true);
     const [validated, setValidated] = useState(false);
     const [changedGrid, setChangedGrid] = useState(
         location.state.changedGrid ? location.state.changedGrid : false
@@ -67,6 +70,7 @@ export default function Selection4x2() {
         // axios.get(`http://localhost:3000/contestants`)
         axios.get('https://dry-cliffs-03397.herokuapp.com/contestants')
         .then(resp => {
+            setContestantLoading(false);
             const arr = resp.data;
             if (filter === 'name-a-z' || null) {
                 sortedArr = arr.sort((a, b) => {
@@ -161,7 +165,11 @@ export default function Selection4x2() {
             setSortedContestants(sortedArr);
             setSearchList(list);
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            setErrorModal(true);
+            setContestantLoading(false);
+            console.error(err)
+        })
     }, [filter]);
 
     const handleSubmit = () => {
@@ -280,6 +288,7 @@ export default function Selection4x2() {
                                                         setGrid={setGrid}
                                                         grid={grid}
                                                         setChangedGrid={setChangedGrid}
+                                                        contestantLoading={contestantLoading}
                                                     />
                                                 </div>
                                             );
@@ -297,6 +306,7 @@ export default function Selection4x2() {
                                                         setGrid={setGrid}
                                                         grid={grid}
                                                         setChangedGrid={setChangedGrid}
+                                                        contestantLoading={contestantLoading}
                                                     />
                                                 </div>
                                             );
@@ -331,6 +341,7 @@ export default function Selection4x2() {
                     grid={grid}
                     setGrid={setGrid}
                     setIsGridNew={setIsGridNew}
+                    setErrorModal={setErrorModal}
                 />
                 <ConfirmModal 
                     confirmModal={confirmModal} 
@@ -338,6 +349,10 @@ export default function Selection4x2() {
                     setValidated={setValidated}
                     grid={grid}
                     isGridNew={isGridNew}
+                />
+                <ErrorModal
+                    errorModal={errorModal}
+                    setErrorModal={setErrorModal}
                 />
             </React.Fragment>
         );
