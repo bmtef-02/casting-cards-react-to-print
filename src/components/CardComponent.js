@@ -81,7 +81,7 @@ function CardComponent({selection, sortedContestants}) {
                     <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].relStatus}</p>
                     <p className="card-text" style={styles.cardInfo}>{sortedContestants[index].location}</p>
                     <p className="card-text" style={styles.cardInfo}>{`${sortedContestants[index].age} years old`}</p>
-                    <p className="card-text" style={styles.cardInfo}>{`IQ: ${sortedContestants[index].IQ}`}</p>
+                    <p className="card-text" style={styles.cardInfo}>{`Height: ${sortedContestants[index].IQ} cm`}</p>
                 </div>
             </div>
         );

@@ -195,7 +195,6 @@ export default function SaveModal(props) {
                     </button>
                 </Modal.Footer>
             </Form>
-            {JSON.stringify(reqBody)}
         </Modal>
     );
 }
