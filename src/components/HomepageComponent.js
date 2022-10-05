@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="row g-4">
                     <div className="col-lg-6 mt-3 p-5 pb-0 bg-dark text-white">
                         <h2>Selecting Cards</h2>
-                        <p style={{height: "50px"}}>asdfasdf No more wasting time positioning text and images. Just select the name of the person you want and the rest is taken care of.</p>
+                        <p style={{height: "50px"}}>No more wasting time positioning text and images. Just select the name of the person you want and the rest is taken care of.</p>
                         <div className="bg-light mx-auto mt-5" style={{ width: "80%", height: "300px", borderRadius: "21px 21px 0 0", overflow: "hidden" }}>
                             <img src={SelectingCardExample} alt="selecting-card-example" style={styles.selectCard} />
                         </div>
