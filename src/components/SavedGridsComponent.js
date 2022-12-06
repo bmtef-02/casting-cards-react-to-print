@@ -9,7 +9,7 @@ import ErrorModal from "./ErrorModalComponents";
 export default function SavedGrids() {
 
     // const url = `http://localhost:3000/grids`;
-    const url = 'https://dry-cliffs-03397.herokuapp.com/grids'
+    const url = 'https://casting-cards-app.onrender.com/grids'
     const navigate = useNavigate();
     const [allGrids, setAllGrids] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

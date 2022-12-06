@@ -23,8 +23,8 @@ export default function SaveModal(props) {
     const [isLoading, setIsLoading] = useState(false);
     // const postUrl = `http://localhost:3000/grids`;
     // const putUrl = `http://localhost:3000/grids/${grid._id}`;
-    const postUrl = `https://dry-cliffs-03397.herokuapp.com/grids`;
-    const putUrl = `https://dry-cliffs-03397.herokuapp.com/grids/${grid._id}`;
+    const postUrl = `https://casting-cards-app.onrender.com/grids`;
+    const putUrl = `https://casting-cards-app.onrender.com/grids/${grid._id}`;
 
     useEffect(() => {
         setReqBody({
