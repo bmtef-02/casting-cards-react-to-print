@@ -68,7 +68,7 @@ export default function Selection5x2() {
         let sortedArr = [];
         let list = [];
         // axios.get(`http://localhost:3000/contestants`)
-        axios.get('https://casting-cards-app.onrender.com//contestants')
+        axios.get('https://casting-cards-app.onrender.com/contestants')
         .then(resp => {
             setContestantLoading(false);
             const arr = resp.data;
